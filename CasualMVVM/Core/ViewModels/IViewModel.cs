@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FuchsiaSoft.CasualMVVM.WindowMediation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -28,9 +29,20 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// <summary>
         /// Uses the WindowMediator to open a new blank Window, and
         /// set the content of the window to the XAML page associated
-        /// with the ViewModel.
+        /// with the ViewModel.  If this method is used then the window
+        /// will not be opened modal by default.  If you need a modal window
+        /// refer to <see cref="ShowWindow(WindowType)"/>
         /// </summary>
         void ShowWindow();
+
+        /// <summary>
+        /// Uses the WindowMediator to open a new blank Window, using 
+        /// the supplied WindowType to control whether or not the window is modal.
+        /// The content of the window is set to the XAML page associated with
+        /// the ViewModel.
+        /// </summary>
+        /// <param name="type"></param>
+        void ShowWindow(WindowType type);
 
         /// <summary>
         /// Closes the Window associated with this ViewModel from the

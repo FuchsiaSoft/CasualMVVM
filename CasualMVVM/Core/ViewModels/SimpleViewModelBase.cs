@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FuchsiaSoft.CasualMVVM.WindowMediation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -63,12 +64,19 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
 
         /// <summary>
         /// For documentation refer to <see cref="IViewModel.ShowWindow"/>
-        /// This method can be overridden if a custom Window type is required.
         /// </summary>
         public virtual void ShowWindow()
         {
-            //TODO: Come back to this when Mediator is finished.
-            throw new NotImplementedException();
+            ShowWindow(WindowType.NewWindowRequest);
+        }
+
+        /// <summary>
+        /// For documentation refer to <see cref="IViewModel.ShowWindow(WindowType)"/>
+        /// </summary>
+        /// <param name="type"></param>
+        public virtual void ShowWindow(WindowType type)
+        {
+            WindowMediator.RaiseMessage(type, this);
         }
 
         /// <summary>

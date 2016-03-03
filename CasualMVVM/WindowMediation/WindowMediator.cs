@@ -58,9 +58,8 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         /// Raises the event (WindowRequested) requesting a new window be opened for the viewmodel.
         /// </summary>
         /// <param name="type">The type of request to raise</param>
-        /// <param name="oldViewModel">The originating viewmodel (parent)</param>
-        /// <param name="newViewModel">The viewmodel that needs a window opening for it (child)</param>
-        internal static void RaiseMessage(WindowType type, object oldViewModel, object newViewModel)
+        /// <param name="newViewModel">The viewmodel that needs a window opening for it</param>
+        internal static void RaiseMessage(WindowType type, object viewModel)
         {
             EventHandler handler = WindowRequested;
 
@@ -69,10 +68,10 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
                 WindowMediatorEventArgs args = new WindowMediatorEventArgs()
                 {
                     WindowType = type,
-                    ViewModel = newViewModel
+                    ViewModel = viewModel
                 };
 
-                handler(oldViewModel, args);
+                handler(viewModel, args);
             }
         }
     }
