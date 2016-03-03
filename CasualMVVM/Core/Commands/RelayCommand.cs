@@ -12,7 +12,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
     /// interface and is designed for operations where the ability to execute
     /// the action is variable and determined by the application state.
     /// </summary>
-    public class RelayCommand : ICommand
+    public class ConditionalCommand : ICommand
     {
         /// <summary>
         /// The message that will be returned in an ArgumentNullException if the
@@ -34,7 +34,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
             "constructed with a valid Predicate.  If you are seeking to " +
             "have a RelayCommand that will always be executable, either " +
             "use the constructor overload that does not require a Predicate " + 
-            "parameter, or look at DelegateCommand";
+            "parameter, or look at SimpleCommand";
 
         /// <summary>
         /// The <see cref="Action{T}"/> that will be invoked on <see cref="Execute(object)"/>
@@ -48,7 +48,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         private Predicate<object> _Predicate;
 
         /// <summary>
-        /// Initialises a <see cref="RelayCommand"/> (<see cref="ICommand"/> implementation) for which the
+        /// Initialises a <see cref="ConditionalCommand"/> (<see cref="ICommand"/> implementation) for which the
         /// <see cref="Execute(object)"/> <see cref="Action"/>'s ability to 
         /// execute is dependent on the supplied <see cref="Predicate{T}"/>.
         /// The supplied <see cref="Predicate{T}"/> should determine from the application state whether
@@ -60,8 +60,8 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         /// not the action is allowed to be invoked.</param>
         /// <exception cref="ArgumentNullException">ArgumentNullException is thrown
         /// if either parameters for this constructor are null.  If no predicate is required
-        /// then use the other constructor overload or look at <see cref="DelegateCommand"/></exception>
-        public RelayCommand(Action<object> action, Predicate<object> predicate)
+        /// then use the other constructor overload or look at <see cref="SimpleCommand"/></exception>
+        public ConditionalCommand(Action<object> action, Predicate<object> predicate)
         {
             CheckAction(action);
             CheckPredicate(predicate);
@@ -71,7 +71,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         }
 
         /// <summary>
-        /// Initialises a <see cref="RelayCommand"/> (<see cref="ICommand"/> 
+        /// Initialises a <see cref="ConditionalCommand"/> (<see cref="ICommand"/> 
         /// implementation) for which the <see cref="Execute(object)"/>
         /// <see cref="Action"/>'s ability to execute is not dependent on the application state.  If
         /// this constructor is used then an internal <see cref="Predicate{T}"/> will be used for evaluation
@@ -81,7 +81,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         /// execution.</param>
         /// <exception cref="ArgumentNullException">ArgumentNullException is thrown
         /// if the supplied Action is null.</exception>
-        public RelayCommand(Action<object> action)
+        public ConditionalCommand(Action<object> action)
         {
             CheckAction(action);
 
