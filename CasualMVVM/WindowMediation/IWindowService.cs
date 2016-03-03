@@ -1,4 +1,6 @@
-﻿namespace FuchsiaSoft.CasualMVVM.WindowMediation
+﻿using FuchsiaSoft.CasualMVVM.Core.ViewModels;
+
+namespace FuchsiaSoft.CasualMVVM.WindowMediation
 {
     /// <summary>
     /// Provides the interface for opening new Windows
@@ -15,6 +17,6 @@
         /// <param name="ViewModel">The ViewModel to open
         /// the window for</param>
         /// <param name="type">The <see cref="WindowType"/> to open</param>
-        void ShowWindow(object ViewModel, WindowType type);
+        void ShowWindow(IViewModel ViewModel, WindowType type);
     }
 }

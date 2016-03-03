@@ -32,16 +32,30 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// <summary>
         /// For documentation refer to <see cref="IViewModel.ActiveWindow"/>
         /// </summary>
-        public Window ActiveWindow { get; private set; }
+        public Window ActiveWindow { get; set; }
 
         /// <summary>
         /// For documentation refer to <see cref="IViewModel.CloseWindow"/>
         /// </summary>
         public void CloseWindow()
         {
+            CloseWindow(true);
+        }
+
+        /// <summary>
+        /// For documentation refer to <see cref="IViewModel.CloseWindow(bool)"/>
+        /// </summary>
+        /// <param name="forceExitAction"></param>
+        public void CloseWindow(bool forceExitAction)
+        {
             if (ActiveWindow != null)
             {
                 ActiveWindow.Close();
+            }
+
+            if (forceExitAction)
+            {
+                ExecuteExitAction();
             }
         }
 

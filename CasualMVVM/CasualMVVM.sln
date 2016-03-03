@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CasualMVVM", "CasualMVVM.csproj", "{DEDD22FA-ED73-4622-A8CA-D98B53DC9DAB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuchsiaSoft.CasualMVVM", "FuchsiaSoft.CasualMVVM.csproj", "{DEDD22FA-ED73-4622-A8CA-D98B53DC9DAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CasualMvvmExampleWpfApplication", "CasualMvvmExampleWpfApplication\CasualMvvmExampleWpfApplication.csproj", "{528B183E-319E-4A34-A2AB-D5DD4944F2EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{DEDD22FA-ED73-4622-A8CA-D98B53DC9DAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEDD22FA-ED73-4622-A8CA-D98B53DC9DAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEDD22FA-ED73-4622-A8CA-D98B53DC9DAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{528B183E-319E-4A34-A2AB-D5DD4944F2EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{528B183E-319E-4A34-A2AB-D5DD4944F2EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{528B183E-319E-4A34-A2AB-D5DD4944F2EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{528B183E-319E-4A34-A2AB-D5DD4944F2EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

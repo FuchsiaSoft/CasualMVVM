@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FuchsiaSoft.CasualMVVM.Core.ViewModels;
+using System;
 
 namespace FuchsiaSoft.CasualMVVM.WindowMediation
 {
@@ -30,7 +31,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         /// <summary>
         /// Gets or sets the ViewModel that needs a window requesting for it
         /// </summary>
-        public object ViewModel { get; set; }
+        public IViewModel ViewModel { get; set; }
 
     }
 
@@ -55,7 +56,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         /// </summary>
         /// <param name="type">The type of request to raise</param>
         /// <param name="newViewModel">The viewmodel that needs a window opening for it</param>
-        internal static void RaiseMessage(WindowType type, object viewModel)
+        internal static void RaiseMessage(WindowType type, IViewModel viewModel)
         {
             EventHandler handler = WindowRequested;
 
