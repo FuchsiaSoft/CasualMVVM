@@ -2,6 +2,14 @@
 
 namespace FuchsiaSoft.CasualMVVM.WindowMediation
 {
+    /// <summary>
+    /// For documentation of the contract refer to <see cref="IWindowService"/>
+    /// ... It is possible to derive an instance of this class to provide
+    /// a custom <see cref="IWindowService"/> that can be passed to
+    /// the <see cref="WindowListener"/> on application startup to facilitate
+    /// your own logic or control which Window to use as referred to in
+    /// documentation for <see cref="ShowWindow(object, WindowType)"/>
+    /// </summary>
     public class WindowService : IWindowService
     {
         /// <summary>

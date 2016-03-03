@@ -3,7 +3,7 @@
 namespace FuchsiaSoft.CasualMVVM.Core
 {
     /// <summary>
-    /// Provides an abstract base implementation of INotifyPropertyChanged,
+    /// Provides an abstract base implementation of <see cref="INotifyPropertyChanged"/>,
     /// this is used to facilitate ViewModels, and can be derived to create
     /// any other object that is required to be observable and raise binding
     /// events.
@@ -16,10 +16,10 @@ namespace FuchsiaSoft.CasualMVVM.Core
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Raises the PropertyChanged event for the specified instance property.
+        /// Raises the <see cref="PropertyChanged"/> event for the specified instance property.
         /// </summary>
         /// <param name="propertyName">The name of the property to
-        /// raise the event for,</param>
+        /// raise the event for</param>
         public void RaisePropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)

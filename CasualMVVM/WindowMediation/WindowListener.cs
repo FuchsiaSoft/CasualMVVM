@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace FuchsiaSoft.CasualMVVM.WindowMediation
 {
     /// <summary>
-    /// Provides a central listening point for the event raised by WindowMediator
+    /// Provides a central listening point for the event raised by <see cref="WindowMediator"/>
     /// requesting new windows for viewmodels.  This class will not pick up
-    /// events unless StartListening() is called, this should generally be done on 
+    /// events unless <see cref="StartListening"/> is called, this should generally be done on 
     /// application startup in the View layer of a MVVM application
     /// </summary>
     public static class WindowListener
@@ -26,15 +26,16 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
             "can be overridden";
 
         /// <summary>
-        /// The IWindowService implementation that will do the opening of the windows.
+        /// The <see cref="IWindowService"/> implementation that will do the opening of the windows.
         /// </summary>
         private static IWindowService _Service;
 
         /// <summary>
-        /// Makes the listener start listening for window requests event from
-        /// the WindowMediator.  You must supply a valid IWindowService to this method,
+        /// Makes the <see cref="WindowListener"/> start listening for window requests event from
+        /// the <see cref="WindowMediator"/>.  You must supply a valid 
+        /// <see cref="IWindowService"/> to this method,
         /// a standard implementation (using blank WPF windows) can be found at
-        /// FuchsiaSoft.CasualMVVM.WindowMediation.WindowService
+        /// <see cref="WindowService"/>
         /// </summary>
         /// <exception cref="ArgumentNullException">ArgumentNullException is thrown
         /// if the supplied IWindowService is null.  It must be a valid implementation
@@ -50,9 +51,10 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         }
 
         /// <summary>
-        /// Makes the listener start listening for window requests event from
-        /// the WindowMediator.  If this constructor is called rather than the one
-        /// requiring a IWindowService, 
+        /// Makes the <see cref="WindowListener"/> start listening for window requests event from
+        /// the <see cref="WindowMediator"/>.  If this constructor is called rather than the one
+        /// requiring a <see cref="IWindowService"/>, then the default <see cref="WindowService"/>
+        /// will be used
         /// </summary>
         public static void StartListening()
         {
@@ -60,10 +62,12 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         }
 
         /// <summary>
-        /// When an event is spotted, the window will be opened using the
-        /// IWindowService implementation, which checks for associated datatemplate
-        /// in the App.xaml of the View... it will then create a blank Window
-        /// and set the content to the associated Page.
+        /// When an event is spotted, the <see cref="System.Windows.Window"/> 
+        /// will be opened using the
+        /// <see cref="IWindowService"/> implementation, which checks 
+        /// for associated <see cref="System.Windows.DataTemplate"/>
+        /// in the App.xaml of the View... it will then create a blank <see cref="System.Windows.Window"/>
+        /// and set the content to the associated Page/>.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
