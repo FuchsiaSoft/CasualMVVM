@@ -12,7 +12,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
     /// interface and is designed for operations where the ability to execute
     /// the action is variable and determined by the application state.
     /// </summary>
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         /// <summary>
         /// The message that will be returned in an ArgumentNullException if the

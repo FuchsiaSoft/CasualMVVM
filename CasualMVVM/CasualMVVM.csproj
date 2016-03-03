@@ -48,10 +48,11 @@
     <Compile Include="Core\Commands\DelegateCommand.cs" />
     <Compile Include="Core\Commands\RelayCommand.cs" />
     <Compile Include="Core\ObservableObject.cs" />
+    <Compile Include="Core\ViewModels\IViewModel.cs" />
+    <Compile Include="Core\ViewModels\SimpleViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core\ViewModels\" />
     <Folder Include="WindowMediation\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
