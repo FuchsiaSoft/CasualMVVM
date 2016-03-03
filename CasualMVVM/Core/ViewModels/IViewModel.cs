@@ -15,12 +15,12 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
     public interface IViewModel : INotifyPropertyChanged, IDisposable
     {
         /// <summary>
-        /// READ ONLY reference to the <see cref="Window"/> that the ViewModel
+        /// Reference to the <see cref="Window"/> that the ViewModel
         /// is associated with, if set by the <see cref="WindowMediator"/>.  This
         /// property may return null, and will only be set if the
         /// <see cref="ShowWindow"/> method is called.
         /// </summary>
-        Window ActiveWindow { get; }
+        Window ActiveWindow { get; set; }
 
         /// <summary>
         /// Uses the <see cref="WindowMediator"/> to open a new blank <see cref="Window"/>, and
@@ -43,9 +43,17 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// <summary>
         /// Closes the <see cref="Window"/> associated with this ViewModel from the
         /// ViewModel layer.  If the <see cref="ActiveWindow"/> is not set then this
-        /// method does nothing so as to preserve unit testability
+        /// method does nothing so as to preserve unit testability.  If this overload
+        /// is used, then by default the exit action will be invoked.
         /// </summary>
         void CloseWindow();
+
+        /// <summary>
+        /// Same as <see cref="CloseWindow"/> except a bool is available to
+        /// force the exit action to invoke on closing the Window.
+        /// </summary>
+        /// <param name="forceExitAction"></param>
+        void CloseWindow(bool forceExitAction);
 
         /// <summary>
         /// Sets the <see cref="Action"/> that the ViewModel should execute on 

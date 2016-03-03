@@ -47,6 +47,8 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
                 throw new ArgumentNullException("service", NULL_SERVICE_MESSAGE);
             }
 
+            _Service = service;
+
             WindowMediator.WindowRequested += WindowMessenger_WindowRequested;
         }
 

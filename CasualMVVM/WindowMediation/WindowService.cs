@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using FuchsiaSoft.CasualMVVM.Core.ViewModels;
+using System.Windows;
 
 namespace FuchsiaSoft.CasualMVVM.WindowMediation
 {
@@ -18,7 +19,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         /// for custom Windows rather than standard WPF blank windows.
         /// </summary>
         /// <param name="viewModel"></param>
-        public virtual void ShowWindow(object viewModel, WindowType type)
+        public virtual void ShowWindow(IViewModel viewModel, WindowType type)
         {
             Window window = new Window();
             window.Content = viewModel;
@@ -36,6 +37,8 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
                 default:
                     break;
             }
+
+            viewModel.ActiveWindow = window;
         }
     }
 }
