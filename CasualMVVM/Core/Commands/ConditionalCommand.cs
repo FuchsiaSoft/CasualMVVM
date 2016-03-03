@@ -8,7 +8,7 @@ using System.Windows.Input;
 namespace FuchsiaSoft.CasualMVVM.Core.Commands
 {
     /// <summary>
-    /// RelayCommand provides a comprehensive implementation of the <see cref="ICommand"/>
+    /// ConditionalCommand provides a comprehensive implementation of the <see cref="ICommand"/>
     /// interface and is designed for operations where the ability to execute
     /// the action is variable and determined by the application state.
     /// </summary>
@@ -19,8 +19,8 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         /// action provided on construction is null.
         /// </summary>
         private const string NULL_ACTION_MESSAGE =
-            "The action supplied to RelayCommand constructor cannot be null. " +
-            "Review your code and make sure that the RelayCommand is being " +
+            "The action supplied to ConditionalCommand constructor cannot be null. " +
+            "Review your code and make sure that the ConditionalCommand is being " +
             "constructed with a valid Action";
 
         /// <summary>
@@ -29,10 +29,10 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         /// overload requiring a predicate was the one called)
         /// </summary>
         private const string NULL_PREDICATE_MESSAGE =
-            "The predicate supplied to RelayCommand constructor cannot be null. " +
-            "Review your code and make sure that the RelayCommand is being " +
+            "The predicate supplied to ConditionalCommand constructor cannot be null. " +
+            "Review your code and make sure that the ConditionalCommand is being " +
             "constructed with a valid Predicate.  If you are seeking to " +
-            "have a RelayCommand that will always be executable, either " +
+            "have a ConditionalCommand that will always be executable, either " +
             "use the constructor overload that does not require a Predicate " + 
             "parameter, or look at SimpleCommand";
 
