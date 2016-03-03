@@ -24,7 +24,7 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
         }
 
 
-        public RelayCommand NewWindowCommand { get { return new RelayCommand(NewWindow, CanNewWindow); } }
+        public ConditionalCommand NewWindowCommand { get { return new ConditionalCommand(NewWindow, CanNewWindow); } }
 
         private bool CanNewWindow(object obj)
         {
