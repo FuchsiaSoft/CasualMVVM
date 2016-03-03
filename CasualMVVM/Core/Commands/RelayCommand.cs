@@ -8,7 +8,7 @@ using System.Windows.Input;
 namespace FuchsiaSoft.CasualMVVM.Core.Commands
 {
     /// <summary>
-    /// RelayCommand provides a comprehensive implementation of the ICommand
+    /// RelayCommand provides a comprehensive implementation of the <see cref="ICommand"/>
     /// interface and is designed for operations where the ability to execute
     /// the action is variable and determined by the application state.
     /// </summary>
@@ -37,29 +37,30 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
             "parameter, or look at DelegateCommand";
 
         /// <summary>
-        /// The actioAction that will be invoked on Execute
+        /// The <see cref="Action{T}"/> that will be invoked on <see cref="Execute(object)"/>
         /// </summary>
         private Action<object> _Action;
 
         /// <summary>
-        /// The predicate that determines whether or not the action
+        /// The <see cref="Predicate{T}"/> that determines whether or not the action
         /// is executable
         /// </summary>
         private Predicate<object> _Predicate;
 
         /// <summary>
-        /// Initialises a RelayCommand (ICommand implementation) for which the
-        /// Execute action's ability to execute is dependent on the supplied predicate.
-        /// The supplied Predicate should determine from the application state whether
-        /// or not the Action is safe/allowed to invoke at the current time.
+        /// Initialises a <see cref="RelayCommand"/> (<see cref="ICommand"/> implementation) for which the
+        /// <see cref="Execute(object)"/> <see cref="Action"/>'s ability to 
+        /// execute is dependent on the supplied <see cref="Predicate{T}"/>.
+        /// The supplied <see cref="Predicate{T}"/> should determine from the application state whether
+        /// or not the <see cref="Action"/> is safe/allowed to invoke at the current time.
         /// </summary>
-        /// <param name="action">The action that should be invoked on
+        /// <param name="action">The <see cref="Action"/> that should be invoked on
         /// command execution.</param>
-        /// <param name="predicate">The Predicate that determines whether or
+        /// <param name="predicate">The <see cref="Predicate{T}"/> that determines whether or
         /// not the action is allowed to be invoked.</param>
         /// <exception cref="ArgumentNullException">ArgumentNullException is thrown
         /// if either parameters for this constructor are null.  If no predicate is required
-        /// then use the other constructor overload or look at DelegateCommand</exception>
+        /// then use the other constructor overload or look at <see cref="DelegateCommand"/></exception>
         public RelayCommand(Action<object> action, Predicate<object> predicate)
         {
             CheckAction(action);
@@ -70,12 +71,13 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         }
 
         /// <summary>
-        /// Initialises a RelayCommand (ICommand implementation) for which the Execute
-        /// action's ability to execute is not dependent on the application state.  If
-        /// this constructor is used then an internal Predicate will be used for evaluation
+        /// Initialises a <see cref="RelayCommand"/> (<see cref="ICommand"/> 
+        /// implementation) for which the <see cref="Execute(object)"/>
+        /// <see cref="Action"/>'s ability to execute is not dependent on the application state.  If
+        /// this constructor is used then an internal <see cref="Predicate{T}"/> will be used for evaluation
         /// that always returns true.
         /// </summary>
-        /// <param name="action">The Action that should be invoked on command
+        /// <param name="action">The <see cref="Action"/> that should be invoked on command
         /// execution.</param>
         /// <exception cref="ArgumentNullException">ArgumentNullException is thrown
         /// if the supplied Action is null.</exception>
@@ -88,7 +90,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         }
 
         /// <summary>
-        /// The event that handles changing state for the Predicate
+        /// The event that handles changing state for the <see cref="Predicate{T}"/>
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
@@ -104,8 +106,8 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         }
 
         /// <summary>
-        /// Determines whether an ICommand can execute.  For this implementation
-        /// the return value of this method is determined by the Predicate supplied
+        /// Determines whether an <see cref="ICommand"/> can execute.  For this implementation
+        /// the return value of this method is determined by the <see cref="Predicate{T}"/> supplied
         /// on construction, or if none was supplied then it will always return true.
         /// </summary>
         /// <param name="parameter">The parmeter passed as the command parameter</param>
@@ -116,7 +118,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         }
 
         /// <summary>
-        /// Invokes the Action that was supplied on construction.
+        /// Invokes the <see cref="Action"/> that was supplied on construction.
         /// </summary>
         /// <param name="parameter">The parameter passed as the commandparameter.</param>
         public void Execute(object parameter)
@@ -125,7 +127,8 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         }
 
         /// <summary>
-        /// Checks whether the supplied Action is null.  In own method to prevent duplication.
+        /// Checks whether the supplied <see cref="Action"/> is null.  
+        /// In own method to prevent duplication.
         /// </summary>
         /// <param name="action"></param>
         private static void CheckAction(Action<object> action)
@@ -137,7 +140,8 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         }
 
         /// <summary>
-        /// Checks whether the supplied Predicate is null, in own method to prevent duplication.
+        /// Checks whether the supplied <see cref="Predicate{T}"/> is null, 
+        /// in own method to prevent duplication.
         /// </summary>
         /// <param name="predicate"></param>
         private static void CheckPredicate(Predicate<object> predicate)
@@ -150,7 +154,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
 
         /// <summary>
         /// An private method which is used in absence of a supplied
-        /// predicate and will always return true.
+        /// <see cref="Predicate{T}"/> and will always return true.
         /// </summary>
         /// <param name="parameter"></param>
         /// <returns></returns>

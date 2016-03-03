@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FuchsiaSoft.CasualMVVM.WindowMediation
 {
     /// <summary>
-    /// Possible message types that can be sent by the mediator
+    /// Possible Window types that can be sent by the mediator
     /// </summary>
     public enum WindowType
     {
         /// <summary>
-        /// Request a new window for the viewmodel
+        /// Request a new <see cref="System.Windows.Window"/> for the viewmodel
         /// </summary>
         NewWindowRequest,
         /// <summary>
@@ -28,7 +24,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
     internal class WindowMediatorEventArgs : EventArgs
     {
         /// <summary>
-        /// Gets or sets the MessageType
+        /// Gets or sets the <see cref="WindowType"/>
         /// </summary>
         public WindowType WindowType { get; set; }
         /// <summary>
@@ -41,7 +37,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
     /// <summary>
     /// Provides a central point for raising events requesting new windows
     /// for viewmodels.  This event can be raised to spawn new windows if
-    /// there is a WindowListener listening for the event.  If not the
+    /// there is a <see cref="WindowListener"/> listening for the event.  If not the
     /// event will just be swallowed.  This allows for unit testing viewmodels
     /// in isolation of UI
     /// </summary>
@@ -49,13 +45,13 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
     {
         /// <summary>
         /// The event that is raised when a viewmodel has requested a new window,
-        /// this will be accompanied by an EventArgs that can be cast as an instance
-        /// of WindowMediatorEventArgs to access the viewmodel that made the request
+        /// this will be accompanied by an <see cref="EventArgs"/> that can be cast as an instance
+        /// of <see cref="WindowMediatorEventArgs"/> to access the viewmodel that made the request
         /// </summary>
         internal static event EventHandler WindowRequested;
 
         /// <summary>
-        /// Raises the event (WindowRequested) requesting a new window be opened for the viewmodel.
+        /// Raises the event (<see cref="WindowRequested"/>) requesting a new window be opened for the viewmodel.
         /// </summary>
         /// <param name="type">The type of request to raise</param>
         /// <param name="newViewModel">The viewmodel that needs a window opening for it</param>

@@ -4,7 +4,7 @@ using System.Windows.Input;
 namespace FuchsiaSoft.CasualMVVM.Core.Commands
 {
     /// <summary>
-    /// Delegate command provides a simple way of satisfying the ICommand
+    /// Delegate command provides a simple way of satisfying the <see cref="ICommand"/>
     /// interface and is designed to be used for operations that are
     /// always executable (i.e. where you would just return true for
     /// the method).
@@ -13,7 +13,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
     {
 
         /// <summary>
-        /// The message that will be returned in an ArgumentNullException if the
+        /// The message that will be returned in an <see cref="ArgumentNullException"/> if the
         /// action provided on construction is null.
         /// </summary>
         private const string NULL_MESSAGE =
@@ -22,17 +22,17 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
             "constructed with a valid Action";
 
         /// <summary>
-        /// The action that will be invoked on Execute
+        /// The action that will be invoked on <see cref="Execute(object)"/>
         /// </summary>
         private Action _Action;
 
         /// <summary>
-        /// Initialises a delegate command (ICommand implementation) which will
+        /// Initialises a <see cref="DelegateCommand"/> (<see cref="ICommand"/> implementation) which will
         /// always be executable.  Useful for simple operations, like a CloseWindow or
         /// Refresh button.  The action passed through cannot be null.
         /// </summary>
-        /// <param name="action">The action that will be executed when the
-        /// Execute method is called</param>
+        /// <param name="action">The <see cref="Action"/> that will be executed when the
+        /// <see cref="Execute(object)"/> method is called</param>
         /// <exception cref="ArgumentNullException">ArgumentNullException is thrown
         /// if consutructor is called with a null value for action parameter</exception>
         public DelegateCommand(Action action)
@@ -47,7 +47,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
 
         /// <summary>
         /// The event for CanExecuteChanged which is irrelevant for this
-        /// implementation of ICommand as a DelegateCommand is always
+        /// implementation of <see cref="ICommand"/> as a <see cref="DelegateCommand"/> is always
         /// executable.
         /// </summary>
 #pragma warning disable 67
@@ -55,12 +55,12 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
 #pragma warning restore
 
         /// <summary>
-        /// Determines whether an ICommand can execute, which will translate
+        /// Determines whether an <see cref="ICommand"/> can execute, which will translate
         /// as enabled/disabled to a button in WPF if the command is bound.
-        /// For DelegateCommand this will always return true and therefore
+        /// For <see cref="DelegateCommand"/> this will always return true and therefore
         /// the button would always be enabled.  For an implementation that
         /// allows defining whether the command is able to execute
-        /// see RelayCommand
+        /// see <see cref="RelayCommand"/>
         /// </summary>
         /// <param name="parameter">The parmeter passed as the commandparameter,
         /// not used in this implementation.</param>
@@ -71,8 +71,8 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         }
 
         /// <summary>
-        /// Invokes the Action that was supplied on construction
-        /// of the delegate command.
+        /// Invokes the <see cref="Action"/> that was supplied on construction
+        /// of the <see cref="DelegateCommand"/>.
         /// </summary>
         /// <param name="parameter">The parameter passed as the commandparameter,
         /// not used in this implementation</param>

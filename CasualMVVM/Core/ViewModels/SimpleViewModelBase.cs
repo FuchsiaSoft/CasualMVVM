@@ -11,21 +11,23 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
 {
     /// <summary>
     /// Provides a simple base ViewModel to derive from, implementing
-    /// IViewModel, INotifyPropertyChanged and IDisposable.
+    /// <see cref="IViewModel"/>, <see cref="INotifyPropertyChanged"/> 
+    /// and <see cref="IDisposable"/>.
     /// </summary>
     public abstract class SimpleViewModelBase : ObservableObject, IViewModel
     {
         /// <summary>
-        /// The action that will be executed when ExecuteExitAction is called,
+        /// The <see cref="Action"/> that will be executed when 
+        /// <see cref="ExecuteExitAction"/>is called,
         /// or the ViewModel is deconstructed or disposed.
         /// </summary>
-        private Action _ExitAction = null;
+        protected Action<object> _ExitAction = null;
 
         /// <summary>
         /// Flag for whether the exit Action has already been invoked to
         /// prevent invoking it multiple times.
         /// </summary>
-        private bool _HasActionInvoked = false;
+        protected bool _HasActionInvoked = false;
 
         /// <summary>
         /// For documentation refer to <see cref="IViewModel.ActiveWindow"/>
@@ -48,9 +50,18 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// </summary>
         public void ExecuteExitAction()
         {
+            ExecuteExitAction(null);
+        }
+
+        /// <summary>
+        /// For documentation refer to <see cref="IViewModel.ExecuteExitAction(object)"/>
+        /// </summary>
+        /// <param name="parameter"></param>
+        public void ExecuteExitAction(object parameter)
+        {
             if (!_HasActionInvoked)
             {
-                _ExitAction.Invoke();
+                _ExitAction.Invoke(parameter);
             }
         }
 
@@ -59,13 +70,22 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// </summary>
         public void SetExitAction(Action exitAction)
         {
+            _ExitAction = new Action<object>(o => exitAction());
+        }
+
+        /// <summary>
+        /// For documentation refer to <see cref="IViewModel.SetExitAction(Action{object})"/>
+        /// </summary>
+        /// <param name="exitAction"></param>
+        public void SetExitAction(Action<object> exitAction)
+        {
             _ExitAction = exitAction;
         }
 
         /// <summary>
         /// For documentation refer to <see cref="IViewModel.ShowWindow"/>
         /// </summary>
-        public virtual void ShowWindow()
+        public void ShowWindow()
         {
             ShowWindow(WindowType.NewWindowRequest);
         }
@@ -74,13 +94,13 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// For documentation refer to <see cref="IViewModel.ShowWindow(WindowType)"/>
         /// </summary>
         /// <param name="type"></param>
-        public virtual void ShowWindow(WindowType type)
+        public void ShowWindow(WindowType type)
         {
             WindowMediator.RaiseMessage(type, this);
         }
 
         /// <summary>
-        /// When the ViewModel is disposed the exit Action is invoked
+        /// When the ViewModel is disposed the exit <see cref="Action"/> is invoked
         /// (if it hasn't been invoked already once).  This method can be
         /// overridden if needed in your own ViewModels for bespoke
         /// behaviour or if your ViewModel needs to release
