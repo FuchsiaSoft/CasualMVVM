@@ -51,9 +51,14 @@
     <Compile Include="Core\ViewModels\IViewModel.cs" />
     <Compile Include="Core\ViewModels\SimpleViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WindowMediation\IWindowService.cs" />
+    <Compile Include="WindowMediation\WindowListener.cs" />
+    <Compile Include="WindowMediation\WindowMediator.cs" />
+    <Compile Include="WindowMediation\WindowService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="WindowMediation\" />
+    <Folder Include="Core\ViewModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
