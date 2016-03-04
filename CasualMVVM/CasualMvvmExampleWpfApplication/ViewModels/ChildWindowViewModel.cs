@@ -11,78 +11,60 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
 {
     class ChildWindowViewModel : DataEntryViewModelBase
     {
-        private string _FieldOne;
-        [Required(ErrorMessage ="Must specify field one")]
-        public string FieldOne
-        {
-            get { return _FieldOne; }
-            set
-            {
-                _FieldOne = value;
-                RaisePropertyChanged("FieldOne");
-            }
-        }
 
-        private string _FieldTwo;
-        [Required(ErrorMessage ="Must specify field two")]
-        [Displayable("Big text field:", DisplayType.LargeTextBox,typeof(string), 2)]
-        public string FieldTwo
-        {
-            get { return _FieldTwo; }
-            set
-            {
-                _FieldTwo = value;
-                RaisePropertyChanged("FieldTwo");
-            }
-        }
 
-        private int _NumberField;
-        [Range(5,1000,ErrorMessage ="Value must be between 5 and 1000")]
-        [Displayable("Number Field:", DisplayType.SimpleTextBox, typeof(int), 1)]
-        public int NumberField
+        private string _FirstName;
+        [Required(ErrorMessage ="Must specify a first name")]
+        [Displayable("First name", DisplayType.SimpleTextBox, typeof(string), 1)]
+        public string FirstName
         {
-            get { return _NumberField; }
+            get { return _FirstName; }
             set
             {
-                _NumberField = value;
-                RaisePropertyChanged("NumberField");
-            }
-        }
-
-        private string _MyProperty;
-        [Displayable("New Property:",DisplayType.LargeTextBox,typeof(string),4)]
-        public string MyProperty
-        {
-            get { return _MyProperty; }
-            set
-            {
-                _MyProperty = value;
-                RaisePropertyChanged("MyProperty");
-            }
-        }
-
-        private string _KitsonsProperty;
-        [Displayable("Kitson:",DisplayType.SimpleTextBox,typeof(string),0)]
-        public string KitsonsProperty
-        {
-            get { return _KitsonsProperty; }
-            set
-            {
-                _KitsonsProperty = value;
-                RaisePropertyChanged("KitsonsProperty");
+                _FirstName = value;
+                RaisePropertyChanged("FirstName");
             }
         }
 
 
-        private string _NewProperty;
-        [Displayable("Label text in here", DisplayType.LargeTextBox, typeof(string), 7)]
-        public string NewProperty
+        private string _LastName;
+        [Required(ErrorMessage ="Must specify a last name")]
+        [Displayable("Last Name", DisplayType.SimpleTextBox, typeof(string), 2)]
+        public string LastName
         {
-            get { return _NewProperty; }
+            get { return _LastName; }
             set
             {
-                _NewProperty = value;
-                RaisePropertyChanged("NewProperty");
+                _LastName = value;
+                RaisePropertyChanged("LastName");
+            }
+        }
+
+
+        private string _Notes;
+        [Displayable("Notes", DisplayType.LargeTextBox, typeof(string), 4)]
+        public string Notes
+        {
+            get { return _Notes; }
+            set
+            {
+                _Notes = value;
+                RaisePropertyChanged("Notes");
+            }
+        }
+
+
+        private int? _Age;
+        [Required(ErrorMessage ="Must specify an age")]
+        [Range(18,100,ErrorMessage ="Age must be between 18 and 100")]
+        [Displayable("Age", DisplayType.SimpleTextBox, typeof(int?), 3)]
+        public int? Age
+        {
+            get { return _Age; }
+            set
+            {
+                _Age = value;
+                RaisePropertyChanged("Age");
             }
         }
 

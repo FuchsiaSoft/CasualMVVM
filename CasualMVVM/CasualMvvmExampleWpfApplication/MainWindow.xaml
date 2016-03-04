@@ -13,6 +13,5 @@
                 Command="{Binding NewWindowCommand}"/>
 
         <TextBlock Text="{Binding MyProperty}" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-
     </Grid>
 </Window>

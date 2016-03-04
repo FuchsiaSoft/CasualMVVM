@@ -37,6 +37,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,16 +55,25 @@
     <Compile Include="Core\ViewModels\IViewModel.cs" />
     <Compile Include="Core\ViewModels\SimpleViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WindowMediation\WindowCreation\GeneralPurposeValidator.cs" />
     <Compile Include="WindowMediation\WindowCreation\IWindowService.cs" />
     <Compile Include="WindowMediation\WindowCreation\Displayable.cs" />
     <Compile Include="WindowMediation\WindowCreation\DisplayTypeException.cs" />
     <Compile Include="WindowMediation\WindowCreation\IWindowSettings.cs" />
+    <Compile Include="WindowMediation\WindowCreation\ValidationStatusBar.xaml.cs">
+      <DependentUpon>ValidationStatusBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowMediation\WindowCreation\WindowSettings.cs" />
     <Compile Include="WindowMediation\WindowListener.cs" />
     <Compile Include="WindowMediation\WindowMediator.cs" />
     <Compile Include="WindowMediation\WindowCreation\WindowService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Page Include="WindowMediation\WindowCreation\ValidationStatusBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

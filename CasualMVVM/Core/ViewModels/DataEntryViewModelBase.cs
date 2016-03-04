@@ -27,6 +27,34 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
             }
         }
 
+        private bool _HasValidationConcern;
+
+        public bool HasValidationConcern
+        {
+            get { return _HasValidationConcern; }
+            set
+            {
+                _HasValidationConcern = value;
+                RaisePropertyChanged("HasValidationConcern");
+            }
+        }
+
+
+        private bool _IsValidated;
+
+        public bool IsValidated
+        {
+            get { return _IsValidated; }
+            set
+            {
+                _IsValidated = value;
+                RaisePropertyChanged("IsValidated");
+            }
+        }
+
+
+
+
         public ConditionalCommand SaveCommand { get { return new ConditionalCommand(Save, CanSave); } }
 
         public virtual bool CanSave(object parameter)
@@ -41,7 +69,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
 
         public abstract void Save(object parameter);
 
-        public bool Validate(out ICollection<ValidationResult> validationResults)
+        public virtual bool Validate(out ICollection<ValidationResult> validationResults)
         {
             if (_Context == null) _Context = new ValidationContext(this);
 
@@ -59,10 +87,29 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
 
             if (validationResults.Count == 0)
             {
+                HasValidationConcern = true;
+                IsValidated = false;
                 return true;
             }
 
+            HasValidationConcern = false;
+            IsValidated = true;
             return false;
+        }
+
+        public virtual ValidationResult ValidateProperty(string propertyName)
+        {
+            return ValidateProperty(this.GetType().GetProperty(propertyName));
+        }
+
+        public virtual ValidationResult ValidateProperty(PropertyInfo property)
+        {
+            ValidationContext context = new ValidationContext(this);
+
+            ICollection<ValidationResult> results = new List<ValidationResult>();
+                Validator.TryValidateProperty(property, context, results);
+
+            return results.FirstOrDefault();
         }
     }
 }

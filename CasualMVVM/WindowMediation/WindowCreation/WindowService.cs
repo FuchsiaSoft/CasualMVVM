@@ -5,7 +5,10 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
 {
@@ -114,13 +117,21 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
 
             DockPanel root = new DockPanel();
 
+            AddStatusBar(root);
             AddStandardButtons(root);
             AddControls(properties, settings, root, viewModel);
 
             window.Content = root;
         }
 
+        private void AddStatusBar(DockPanel root)
+        {
+            ValidationStatusBar statusBar = new ValidationStatusBar();
 
+            DockPanel.SetDock(statusBar, Dock.Bottom);
+
+            root.Children.Add(statusBar);
+        }
 
         private static void AddControls(IEnumerable<PropertyInfo> properties, 
             IWindowSettings settings, DockPanel root, IViewModel viewModel)
@@ -182,6 +193,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                         };
 
                         binding.Path = new PropertyPath(property.Name);
+                        binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
                         BindingOperations.SetBinding(simpleBox, TextBox.TextProperty, binding);
                         controlDock.Children.Add(simpleBox);
 
@@ -233,6 +245,9 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                 Margin = new Thickness(10),
                 Padding = new Thickness(5)
             };
+
+            
+
             Button saveButton = new Button()
             {
                 Content = "Save",
@@ -240,6 +255,8 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                 Margin = new Thickness(10),
                 Padding = new Thickness(5)
             };
+
+            saveButton.SetBinding(Button.CommandProperty, "SaveCommand");
 
             DockPanel.SetDock(buttonDock, Dock.Bottom);
             buttonDock.Children.Add(saveButton);
