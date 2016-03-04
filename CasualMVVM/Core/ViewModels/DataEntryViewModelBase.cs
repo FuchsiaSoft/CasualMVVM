@@ -6,6 +6,24 @@ using System.Reflection;
 
 namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
 {
+    /// <summary>
+    /// Used to indicate to a <see cref="DataEntryViewModelBase"/>
+    /// whether the window is used for creating new records, or
+    /// editing existing records.  Assists in facilitating
+    /// ViewModel re-use for both instances.
+    /// </summary>
+    public enum DataEntryMode
+    {
+        /// <summary>
+        /// ViewModel is for a new records
+        /// </summary>
+        New,
+        /// <summary>
+        /// ViewModel is for existing records
+        /// </summary>
+        Edit
+    }
+
     public abstract class DataEntryViewModelBase : SimpleViewModelBase, IDataEntryViewModel
     {
         protected ValidationContext _Context;
@@ -13,6 +31,8 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         protected ICollection<ValidationResult> _LastValidationState;
 
         private string _CurrentValidationConcern;
+
+        public DataEntryMode Mode { get; set; } = DataEntryMode.New;
 
         public string CurrentValidationConcern
         {
@@ -64,7 +84,26 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
             return false;
         }
 
-        public abstract void Save(object parameter);
+        public virtual void Save(object parameter)
+        {
+            switch (Mode)
+            {
+                case DataEntryMode.New:
+                    SaveNew(parameter);
+                    break;
+
+                case DataEntryMode.Edit:
+                    SaveExisting(parameter);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        protected abstract void SaveNew(object parameter);
+
+        protected abstract void SaveExisting(object parameter);
 
         public virtual bool Validate(out ICollection<ValidationResult> validationResults)
         {

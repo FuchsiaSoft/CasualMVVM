@@ -68,12 +68,15 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
             }
         }
 
-
-
-        public override void Save(object parameter)
+        protected override void SaveNew(object parameter)
         {
             CloseWindow();
             ExecuteExitAction();
+        }
+
+        protected override void SaveExisting(object parameter)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -127,7 +127,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
 
         private void AddWindowTitle(DockPanel root)
         {
-            throw new NotImplementedException();
+            //TODO: add window title bit here
         }
 
         private void AddStatusBar(DockPanel root)
