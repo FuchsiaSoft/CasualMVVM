@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -76,7 +77,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         private static void WindowMessenger_WindowRequested(object sender, EventArgs e)
         {
             WindowMediatorEventArgs args = (WindowMediatorEventArgs)e;
-            _Service.ShowWindow(args.ViewModel, args.WindowType);
+            _Service.ShowWindow(args.ViewModel, args.WindowType, args.Settings);
         }
     }
 }

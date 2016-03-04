@@ -1,4 +1,5 @@
 ﻿using FuchsiaSoft.CasualMVVM.WindowMediation;
+using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -7,12 +8,9 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
 {
     /// <summary>
     /// Provides the core interface for all ViewModels, including
-    /// <see cref="INotifyPropertyChanged"/> and <see cref="IDisposable"/>.
-    /// <see cref="IDisposable"/> is only used in this library to allow for
-    /// disposal to invoke the exit <see cref="Action"/>, but can be overridden
-    /// if necessary for applied uses.
+    /// <see cref="INotifyPropertyChanged"/>
     /// </summary>
-    public interface IViewModel : INotifyPropertyChanged, IDisposable
+    public interface IViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// Reference to the <see cref="Window"/> that the ViewModel
@@ -21,6 +19,12 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// <see cref="ShowWindow"/> method is called.
         /// </summary>
         Window ActiveWindow { get; set; }
+
+        /// <summary>
+        /// Gets or sets the flag which controls whether the <see cref="IViewModel"/>
+        /// will invoke its exit <see cref="Action"/> on <see cref="Window.Closed"/>
+        /// </summary>
+        bool InvokeOnWindowClose { get; set; }
 
         /// <summary>
         /// Uses the <see cref="WindowMediator"/> to open a new blank <see cref="Window"/>, and
@@ -38,7 +42,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// the ViewModel.
         /// </summary>
         /// <param name="type"></param>
-        void ShowWindow(WindowType type);
+        void ShowWindow(WindowType type, IWindowSettings settings = null);
 
         /// <summary>
         /// Closes the <see cref="Window"/> associated with this ViewModel from the
@@ -58,7 +62,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// <summary>
         /// Sets the <see cref="Action"/> that the ViewModel should execute on 
         /// <see cref="ExecuteExitAction"/>, or
-        /// on deconstruction, or disposal.
+        /// on deconstruction
         /// </summary>
         /// <param name="exitAction">The <see cref="Action"/> to execute</param>
         void SetExitAction(Action exitAction);
@@ -66,15 +70,14 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// <summary>
         /// Sets the <see cref="Action"/> that the ViewModel should execute on 
         /// <see cref="ExecuteExitAction"/>, or
-        /// on deconstruction, or disposal.
+        /// on deconstruction
         /// </summary>
         /// <param name="exitAction"></param>
         void SetExitAction(Action<object> exitAction);
 
         /// <summary>
         /// Executes the <see cref="Action"/> specified when calling <see cref="SetExitAction(Action)"/>.  This method
-        /// can be invoked manually, but will also be called on deconstruction or
-        /// disposal.
+        /// can be invoked manually, but will also be called on deconstruction
         /// </summary>
         void ExecuteExitAction();
 
@@ -84,5 +87,11 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// </summary>
         /// <param name="parameter"></param>
         void ExecuteExitAction(object parameter);
+
+        /// <summary>
+        /// Sets the title of the Window (if using the standard <see cref="WindowService"/>
+        /// provided, which binds to this property.
+        /// </summary>
+        string WindowTitle { get; set; }
     }
 }

@@ -37,11 +37,7 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
 
             viewModel.SetExitAction(DoSomething);
 
-            viewModel.ShowWindow();
-
-            Thread.Sleep(2000);
-
-            viewModel.CloseWindow();
+            viewModel.ShowWindow(CasualMVVM.WindowMediation.WindowType.NewAutoWindowRequest);
         }
 
         private void DoSomething()

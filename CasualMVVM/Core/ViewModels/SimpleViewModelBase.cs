@@ -1,4 +1,5 @@
 ﻿using FuchsiaSoft.CasualMVVM.WindowMediation;
+using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,14 +13,13 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
     /// <summary>
     /// Provides a simple base ViewModel to derive from, implementing
     /// <see cref="IViewModel"/>, <see cref="INotifyPropertyChanged"/> 
-    /// and <see cref="IDisposable"/>.
     /// </summary>
     public abstract class SimpleViewModelBase : ObservableObject, IViewModel
     {
         /// <summary>
         /// The <see cref="Action"/> that will be executed when 
         /// <see cref="ExecuteExitAction"/>is called,
-        /// or the ViewModel is deconstructed or disposed.
+        /// or the ViewModel is deconstructed
         /// </summary>
         protected Action<object> _ExitAction = null;
 
@@ -29,10 +29,37 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// </summary>
         protected bool _HasActionInvoked = false;
 
+        private Window _ActiveWindow;
         /// <summary>
         /// For documentation refer to <see cref="IViewModel.ActiveWindow"/>
         /// </summary>
-        public Window ActiveWindow { get; set; }
+        public Window ActiveWindow
+        {
+            get { return _ActiveWindow; }
+            set
+            {
+                _ActiveWindow = value;
+                if (InvokeOnWindowClose)
+                {
+                    _ActiveWindow.Closed += _ActiveWindow_Closed; 
+                }
+            }
+        }
+
+        /// <summary>
+        /// For documentaiton refer to <see cref="IViewModel.InvokeOnWindowClose"/>
+        /// </summary>
+        public bool InvokeOnWindowClose { get; set; }
+
+        protected virtual void _ActiveWindow_Closed(object sender, EventArgs e)
+        {
+            ExecuteExitAction();
+        }
+
+        /// <summary>
+        /// For documentation refer to <see cref="IViewModel.WindowTitle"/>
+        /// </summary>
+        public string WindowTitle { get; set; }
 
         /// <summary>
         /// For documentation refer to <see cref="IViewModel.CloseWindow"/>
@@ -73,7 +100,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// <param name="parameter"></param>
         public void ExecuteExitAction(object parameter)
         {
-            if (!_HasActionInvoked)
+            if (!_HasActionInvoked && _ExitAction != null)
             {
                 _ExitAction.Invoke(parameter);
             }
@@ -108,22 +135,11 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// For documentation refer to <see cref="IViewModel.ShowWindow(WindowType)"/>
         /// </summary>
         /// <param name="type"></param>
-        public void ShowWindow(WindowType type)
+        public void ShowWindow(WindowType type, IWindowSettings settings = null)
         {
-            WindowMediator.RaiseMessage(type, this);
+            WindowMediator.RaiseMessage(type, this, settings);
         }
 
-        /// <summary>
-        /// When the ViewModel is disposed the exit <see cref="Action"/> is invoked
-        /// (if it hasn't been invoked already once).  This method can be
-        /// overridden if needed in your own ViewModels for bespoke
-        /// behaviour or if your ViewModel needs to release
-        /// resources on disposal.
-        /// </summary>
-        public virtual void Dispose()
-        {
-            ExecuteExitAction();
-        }
 
         /// <summary>
         /// Deconstructor just invokes exit action if it hasn't already.
