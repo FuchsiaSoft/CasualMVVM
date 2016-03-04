@@ -1,11 +1,6 @@
 ﻿using FuchsiaSoft.CasualMVVM.WindowMediation;
 using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
@@ -58,8 +53,11 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
 
         /// <summary>
         /// For documentation refer to <see cref="IViewModel.WindowTitle"/>
+        /// this property can be overridden in derived classes
+        /// to provide custom logic for determining window
+        /// title
         /// </summary>
-        public string WindowTitle { get; set; }
+        public virtual string WindowTitle { get; set; }
 
         /// <summary>
         /// For documentation refer to <see cref="IViewModel.CloseWindow"/>

@@ -75,21 +75,5 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
             CloseWindow();
             ExecuteExitAction();
         }
-
-        public override bool CanSave(object parameter)
-        {
-            bool returnValue = base.CanSave(parameter);
-
-            if (returnValue == false)
-            {
-                CurrentValidationConcern = _LastValidationState.First().ErrorMessage;
-            }
-            else
-            {
-                CurrentValidationConcern = "No validation errors";
-            }
-
-            return returnValue;
-        }
     }
 }

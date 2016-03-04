@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FuchsiaSoft.CasualMVVM.Core.Commands;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
@@ -87,13 +84,16 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
 
             if (validationResults.Count == 0)
             {
-                HasValidationConcern = true;
-                IsValidated = false;
+                HasValidationConcern = false;
+                CurrentValidationConcern = null;
+                IsValidated = true;
                 return true;
             }
 
-            HasValidationConcern = false;
-            IsValidated = true;
+            HasValidationConcern = true;
+            CurrentValidationConcern =
+                validationResults.First().ErrorMessage;
+            IsValidated = false;
             return false;
         }
 

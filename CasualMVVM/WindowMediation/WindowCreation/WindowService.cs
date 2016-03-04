@@ -118,10 +118,16 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
             DockPanel root = new DockPanel();
 
             AddStatusBar(root);
+            AddWindowTitle(root);
             AddStandardButtons(root);
             AddControls(properties, settings, root, viewModel);
 
             window.Content = root;
+        }
+
+        private void AddWindowTitle(DockPanel root)
+        {
+            throw new NotImplementedException();
         }
 
         private void AddStatusBar(DockPanel root)
@@ -139,7 +145,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
             ScrollViewer scrollViewer = new ScrollViewer()
             {
                 VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-                HorizontalScrollBarVisibility = ScrollBarVisibility.Auto
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled
             };
 
             root.Children.Add(scrollViewer);
@@ -182,7 +188,11 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                 controlDock.Children.Add(label);
 
                 Binding binding = new Binding();
+                //this auto window we want to validate for every keystroke
+                binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
                 binding.Source = viewModel;
+                binding.Path = new PropertyPath(property.Name);
+                binding.TargetNullValue = String.Empty;
 
                 switch (displayAttribute.GetDisplayType())
                 {
@@ -192,8 +202,6 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                             Margin = new Thickness(5)
                         };
 
-                        binding.Path = new PropertyPath(property.Name);
-                        binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
                         BindingOperations.SetBinding(simpleBox, TextBox.TextProperty, binding);
                         controlDock.Children.Add(simpleBox);
 
@@ -206,8 +214,11 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                             Height = 90,
                             VerticalContentAlignment = VerticalAlignment.Top,
                             TextWrapping = TextWrapping.Wrap,
-                            AcceptsReturn = true
+                            AcceptsReturn = true,
+                            VerticalScrollBarVisibility = ScrollBarVisibility.Visible
                         };
+
+                        BindingOperations.SetBinding(largeBox, TextBox.TextProperty, binding);
                         controlDock.Children.Add(largeBox);
                         break;
 

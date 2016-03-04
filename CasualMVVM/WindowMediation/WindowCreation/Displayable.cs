@@ -28,13 +28,9 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         private static IEnumerable<Type> _SimpleTextBoxTypes = new List<Type>()
         {
             typeof(string),
-            typeof(int),
             typeof(int?),
-            typeof(long),
             typeof(long?),
-            typeof(double),
             typeof(double?),
-            typeof(float),
             typeof(float?)
         };
 
@@ -190,6 +186,11 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         }
 
         
+        //These are just helper methods to get the properties,
+        //because if we expose properties directly they make
+        //the attribute constructor look rather messy
+        //in Intellisense
+
         /// <summary>
         /// Returns the DisplayType for the attribute
         /// </summary>
@@ -199,9 +200,23 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
             return _DisplayType;
         }
 
+        /// <summary>
+        /// Returns the LabelText for the attribute
+        /// </summary>
+        /// <returns></returns>
         public string GetLabel()
         {
             return _Label;
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Type"/> of
+        /// the property for this attribute
+        /// </summary>
+        /// <returns></returns>
+        public Type GetPropertyType()
+        {
+            return _PropertyType;
         }
     }
 }
