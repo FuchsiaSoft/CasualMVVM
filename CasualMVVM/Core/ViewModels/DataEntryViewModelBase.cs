@@ -3,6 +3,7 @@ using System.Linq;
 using FuchsiaSoft.CasualMVVM.Core.Commands;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using System.Collections.ObjectModel;
 
 namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
 {
@@ -28,11 +29,21 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
     {
         protected ValidationContext _Context;
 
-        protected ICollection<ValidationResult> _LastValidationState;
+        public DataEntryMode Mode { get; set; } = DataEntryMode.New;
+
+        private ObservableCollection<ValidationResult> _LastValidationState;
+
+        public ObservableCollection<ValidationResult> LastValidationState
+        {
+            get { return _LastValidationState; }
+            set
+            {
+                _LastValidationState = value;
+                RaisePropertyChanged("LastValidationState");
+            }
+        }
 
         private string _CurrentValidationConcern;
-
-        public DataEntryMode Mode { get; set; } = DataEntryMode.New;
 
         public string CurrentValidationConcern
         {
@@ -69,14 +80,11 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
             }
         }
 
-
-
-
         public ConditionalCommand SaveCommand { get { return new ConditionalCommand(Save, CanSave); } }
 
         public virtual bool CanSave(object parameter)
         {
-            if (Validate(out _LastValidationState))
+            if (Validate(_LastValidationState))
             {
                 return true;
             }
@@ -105,7 +113,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
 
         protected abstract void SaveExisting(object parameter);
 
-        public virtual bool Validate(out ICollection<ValidationResult> validationResults)
+        public virtual bool Validate(ICollection<ValidationResult> validationResults)
         {
             if (_Context == null) _Context = new ValidationContext(this);
 

@@ -6,6 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
+using System.Windows.Media;
+using FuchsiaSoft.CasualMvvmExampleWpfApplication.Model;
+using System.Collections.ObjectModel;
+using FuchsiaSoft.CasualMVVM.Core.Commands;
+using System.Windows;
 
 namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
 {
@@ -67,6 +72,96 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
                 RaisePropertyChanged("Age");
             }
         }
+
+
+
+        private HairColour _SelectedHairColour;
+        [Required(ErrorMessage ="Must specify a hair colour")]
+        public HairColour SelectedHairColour
+        {
+            get { return _SelectedHairColour; }
+            set
+            {
+                _SelectedHairColour = value;
+                RaisePropertyChanged("SelectedHairColour");
+            }
+        }
+
+
+        private ObservableCollection<HairColour> _HairColours = new ObservableCollection<HairColour>()
+        {
+            new HairColour() { ColourName = "Blonde" },
+            new HairColour() { ColourName = "Black" },
+            new HairColour() { ColourName = "Brown" },
+            new HairColour() { ColourName = "White" }
+        };
+        [Displayable("Hair Colour", DisplayType.ListBox, typeof(ObservableCollection<HairColour>), 4, displayMemberPath:"ColourName", selectedItemPath:"SelectedHairColour")]
+        public ObservableCollection<HairColour> HairColours
+        {
+            get { return _HairColours; }
+            set
+            {
+                _HairColours = value;
+                RaisePropertyChanged("HairColours");
+            }
+        }
+
+        [Displayable("Add new hair colour",DisplayType.Button,typeof(string),5)]
+        public ConditionalCommand AddNewHairColourCommand { get { return new ConditionalCommand(AddNewHairColour, CanAddNewHairColour); } }
+
+        private bool CanAddNewHairColour(object obj)
+        {
+            return true;
+        }
+
+        private void AddNewHairColour(object obj)
+        {
+            HairViewModel newVM = new HairViewModel();
+            newVM.ShowWindow(CasualMVVM.WindowMediation.WindowType.NewModalAutoWindowRequest);
+        }
+
+
+
+        private bool _CheckValue;
+        [Displayable("Check box test", DisplayType.CheckBox, typeof(bool), 6)]
+        public bool CheckValue
+        {
+            get { return _CheckValue; }
+            set
+            {
+                _CheckValue = value;
+                RaisePropertyChanged("CheckValue");
+            }
+        }
+
+
+
+        private DateTime? _ChosenDate;
+        [Displayable("A date picker", DisplayType.DatePicker, typeof(DateTime), 6)]
+        [DateRange(2015,01,01,2015,12,31, ErrorMessage ="Date not in 2015")]
+        public DateTime? ChosenDate
+        {
+            get { return _ChosenDate; }
+            set
+            {
+                _ChosenDate = value;
+                RaisePropertyChanged("ChosenDate");
+            }
+        }
+
+
+        private string _LinkedText;
+        [Displayable("Enabled by check", DisplayType.SimpleTextBox, typeof(string), 7, enabledBy:"CheckValue")]
+        public string LinkedText
+        {
+            get { return _LinkedText; }
+            set
+            {
+                _LinkedText = value;
+                RaisePropertyChanged("LinkedText");
+            }
+        }
+
 
         protected override void SaveNew(object parameter)
         {

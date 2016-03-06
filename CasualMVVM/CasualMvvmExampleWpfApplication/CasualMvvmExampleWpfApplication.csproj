@@ -57,10 +57,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\HairColour.cs" />
     <Compile Include="Pages\ChildPage.xaml.cs">
       <DependentUpon>ChildPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ChildWindowViewModel.cs" />
+    <Compile Include="ViewModels\HairViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

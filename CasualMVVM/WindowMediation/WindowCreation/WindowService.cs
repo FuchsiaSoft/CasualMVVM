@@ -104,7 +104,8 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                 settings = new WindowSettings();
             }
 
-            window.Height = settings.DefaultHeight;
+            window.MaxHeight = settings.MaximumHeight;
+            window.SizeToContent = SizeToContent.Height;
             window.Width = settings.DefaultWidth;
             window.ResizeMode = settings.DefaultResizeMode;
 
@@ -180,12 +181,23 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                     property.GetCustomAttribute<Displayable>();
 
                 DockPanel controlDock = new DockPanel();
-                Label label = new Label()
+
+                if (displayAttribute.GetDisplayType() != DisplayType.Button)
                 {
-                    Content = displayAttribute.GetLabel(),
-                    Width = settings.DefaultLabelWidth
-                };
-                controlDock.Children.Add(label);
+                    Label label = new Label()
+                    {
+                        Content = displayAttribute.GetLabel(),
+                        Width = settings.DefaultLabelWidth,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+                    controlDock.Children.Add(label); 
+                }
+
+                if (displayAttribute.GetEnabledBy() != null &&
+                    displayAttribute.GetEnabledBy() != String.Empty)
+                {
+                    controlDock.SetBinding(Control.IsEnabledProperty, displayAttribute.GetEnabledBy());
+                }
 
                 Binding binding = new Binding();
                 //this auto window we want to validate for every keystroke
@@ -223,12 +235,63 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                         break;
 
                     case DisplayType.ComboBox:
+                        ComboBox comboBox = new ComboBox()
+                        {
+                            Margin = new Thickness(5),
+                            DisplayMemberPath = displayAttribute.GetDisplayMemberPath()
+                        };
+
+                        BindingOperations.SetBinding(comboBox, ComboBox.ItemsSourceProperty, binding);
+                        comboBox.SetBinding(ComboBox.SelectedItemProperty, displayAttribute.GetSelectedItemPath());
+                        controlDock.Children.Add(comboBox);
+                        break;
+
+                    case DisplayType.ListBox:
+                        ListBox listBox = new ListBox()
+                        {
+                            Margin = new Thickness(5),
+                            DisplayMemberPath = displayAttribute.GetDisplayMemberPath(),
+                            Height=100
+                        };
+
+                        BindingOperations.SetBinding(listBox, ListBox.ItemsSourceProperty, binding);
+                        listBox.SetBinding(ListBox.SelectedItemProperty, displayAttribute.GetSelectedItemPath());
+                        controlDock.Children.Add(listBox);
                         break;
 
                     case DisplayType.CheckBox:
+                        CheckBox checkBox = new CheckBox()
+                        {
+                            Margin = new Thickness(5),
+                            HorizontalAlignment = HorizontalAlignment.Left
+                        };
+
+                        BindingOperations.SetBinding(checkBox, CheckBox.IsCheckedProperty, binding);
+                        controlDock.Children.Add(checkBox);
                         break;
 
                     case DisplayType.DatePicker:
+                        DatePicker datePicker = new DatePicker()
+                        {
+                            Margin = new Thickness(5)
+                        };
+
+                        BindingOperations.SetBinding(datePicker, DatePicker.SelectedDateProperty, binding);
+                        controlDock.Children.Add(datePicker);
+                        break;
+
+                    case DisplayType.Button:
+                        Button button = new Button()
+                        {
+                            Margin = new Thickness(5),
+                            Padding = new Thickness(3),
+                            Content = displayAttribute.GetLabel(),
+                            HorizontalAlignment = HorizontalAlignment.Right
+                        };
+
+                        BindingOperations.SetBinding(button, Button.CommandProperty, binding);
+                        DockPanel.SetDock(button, Dock.Right);
+                        controlDock.Children.Add(button);
                         break;
                 }
 

@@ -22,6 +22,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,7 +53,9 @@
     <Compile Include="Core\Commands\SimpleCommand.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\ViewModels\DataEntryViewModelBase.cs" />
+    <Compile Include="Core\ViewModels\DateRange.cs" />
     <Compile Include="Core\ViewModels\IDataEntryViewModel.cs" />
+    <Compile Include="Core\ViewModels\IValidatingViewModel.cs" />
     <Compile Include="Core\ViewModels\IViewModel.cs" />
     <Compile Include="Core\ViewModels\SimpleViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

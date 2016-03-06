@@ -11,10 +11,10 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
     {
         int DefaultWidth { get; set; }
 
-        int DefaultHeight { get; set; }
-
         ResizeMode DefaultResizeMode { get; set; }
 
         int DefaultLabelWidth { get; set; }
+
+        int MaximumHeight { get; set; }
     }
 }

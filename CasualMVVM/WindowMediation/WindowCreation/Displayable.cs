@@ -1,18 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
 {
+    /// <summary>
+    /// The type of control to auto generate onto the window
+    /// </summary>
     public enum DisplayType
     {
+        /// <summary>
+        /// A simple, single line text box
+        /// </summary>
         SimpleTextBox,
+        /// <summary>
+        /// A larger textbox which accepts return and
+        /// has a vertical scroll bar enabled
+        /// </summary>
         LargeTextBox,
+        /// <summary>
+        /// A typical combo box, for this to function the
+        /// selectedItemPath and displayMemberPath parmeters
+        /// should be set in the Displayable attribute
+        /// constructor
+        /// </summary>
         ComboBox,
+        /// <summary>
+        /// A typical check box
+        /// </summary>
         CheckBox,
-        DatePicker
+        /// <summary>
+        /// A typical DatePicker
+        /// </summary>
+        DatePicker,
+        /// <summary>
+        /// A simple ListBox, for this to function the
+        /// selectedItemPath and displayMemberPath parmeters
+        /// should be set in the Displayable attribute
+        /// </summary>
+        ListBox,
+        /// <summary>
+        /// A button that binds to a command
+        /// </summary>
+        Button
     }
 
     /// <summary>
@@ -43,14 +76,6 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         };
 
         /// <summary>
-        /// The list of allowable Types for a <see cref="DisplayType.ComboBox"/>
-        /// </summary>
-        private static IEnumerable<Type> _ComboBoxTypes = new List<Type>()
-        {
-            typeof(object)
-        };
-
-        /// <summary>
         /// The list of allowable Types for a <see cref="DisplayType.CheckBox"/>
         /// </summary>
         private static IEnumerable<Type> _CheckBoxTypes = new List<Type>()
@@ -65,6 +90,14 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         private static IEnumerable<Type> _DatePickerTypes = new List<Type>()
         {
             typeof(DateTime)
+        };
+
+        /// <summary>
+        /// The list of allowable Types for a <see cref="DisplayType.Button"/>
+        /// </summary>
+        private static IEnumerable<Type> _ButtonTypes = new List<Type>()
+        {
+            typeof(string)
         };
 
         /// <summary>
@@ -96,10 +129,18 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         private Type _PropertyType;
 
         /// <summary>
+        /// The name of the property that the control
+        /// for this property should have its IsEnabled
+        /// property bound to.
+        /// </summary>
+        private string _EnabledBy;
+
+        /// <summary>
         /// The order in which to display the control associated
         /// with the property.
         /// </summary>
         public int DisplayOrder { get; set; }
+
 
         /// <summary>
         /// Makes a ViewModel's property displayable, meaning
@@ -119,15 +160,18 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         /// <exception cref="DisplayTypeException">Will throw
         /// DisplayTypeException if the property type is not compatible
         /// with the supplied displayType</exception>
+        /// TODO: finish off these comments for parameters!
         public Displayable(string label, DisplayType displayType, 
             Type propertyType, int displayOrder,
-            string selectedItemPath = null, string displayMemberPath = null)
+            string selectedItemPath = null, string displayMemberPath = null,
+            string enabledBy = null)
         {
             _Label = label;
             _DisplayType = displayType;
             _DisplayMemberPath = displayMemberPath;
             _PropertyType = propertyType;
             _SelectedItemPath = selectedItemPath;
+            _EnabledBy = enabledBy;
             DisplayOrder = displayOrder;
 
             ValidateDisplayAttribute(_DisplayType, _PropertyType);
@@ -142,6 +186,15 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         /// <param name="propertyType"></param>
         private void ValidateDisplayAttribute(DisplayType displayType, Type propertyType)
         {
+            if (displayType == DisplayType.ComboBox ||
+                displayType == DisplayType.ListBox)
+            {
+                return;
+                //TODO: find a decent way to validate for combo
+                //boxes & listboxes, as they're going to be a variety of
+                //generic types
+            }
+
             IEnumerable<Type> allowableTypes = GetAllowableTypes(displayType);
 
             if (allowableTypes.Any(t=>t == propertyType) == false)
@@ -169,8 +222,11 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                     allowableTypes = _LargeTextBoxTypes;
                     break;
 
+                    //TODO: as per comment above in ValidateDisplayAttribute
                 case DisplayType.ComboBox:
-                    allowableTypes = _ComboBoxTypes;
+                    break;
+
+                case DisplayType.ListBox:
                     break;
 
                 case DisplayType.CheckBox:
@@ -179,6 +235,10 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
 
                 case DisplayType.DatePicker:
                     allowableTypes = _DatePickerTypes;
+                    break;
+
+                case DisplayType.Button:
+                    allowableTypes = _ButtonTypes;
                     break;
             }
 
@@ -217,6 +277,21 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         public Type GetPropertyType()
         {
             return _PropertyType;
+        }
+
+        public string GetEnabledBy()
+        {
+            return _EnabledBy;
+        }
+
+        public string GetSelectedItemPath()
+        {
+            return _SelectedItemPath;
+        }
+
+        public string GetDisplayMemberPath()
+        {
+            return _DisplayMemberPath;
         }
     }
 }

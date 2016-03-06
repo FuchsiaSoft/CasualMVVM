@@ -10,12 +10,12 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
 {
     public class WindowSettings : IWindowSettings
     {
-        public int DefaultHeight { get; set; } = 300;
-
         public ResizeMode DefaultResizeMode { get; set; } = ResizeMode.CanResizeWithGrip;
 
         public int DefaultWidth { get; set; } = 400;
 
         public int DefaultLabelWidth { get; set; } = 100;
+
+        public int MaximumHeight { get; set; } = 600;
     }
 }
