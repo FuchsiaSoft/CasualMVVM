@@ -8,52 +8,7 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="ChildPage">
 
-    <Page.Resources>
-        <Style TargetType="Label">
-            <Setter Property="Width" Value="100"/>
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
-    </Page.Resources>
-    
     <Grid>
-        <DockPanel>
-            <TextBlock DockPanel.Dock="Bottom"
-                       Text="{Binding CurrentValidationConcern}">
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Foreground" Value="Red"/>
-                        <Setter Property="FontStyle" Value="Italic"/>
-                        <Setter Property="FontWeight" Value="SemiBold"/>
-                        <Style.Triggers>
-                            <Trigger Property="Text" Value="No validation errors">
-                                <Setter Property="Foreground" Value="Green"/>
-                                <Setter Property="FontStyle" Value="Italic"/>
-                                <Setter Property="Opacity" Value="0.6"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
-            <StackPanel>
-                <DockPanel>
-                    <Label Content="Field one"/>
-                    <TextBox Text="{Binding FieldOne, UpdateSourceTrigger=PropertyChanged}"/>
-                </DockPanel>
-                <DockPanel>
-                    <Label Content="Field two"/>
-                    <TextBox Text="{Binding FieldTwo, UpdateSourceTrigger=PropertyChanged}"/>
-                </DockPanel>
-                <DockPanel>
-                    <Label Content="Number field"/>
-                    <TextBox Text="{Binding NumberField, UpdateSourceTrigger=PropertyChanged}"/>
-                </DockPanel>
-                <Button Content="Save Button" Margin="5"
-                        HorizontalAlignment="Right" Padding="3"
-                        Command="{Binding SaveCommand}"/>
-            </StackPanel>
-        </DockPanel>
+        
     </Grid>
 </Page>

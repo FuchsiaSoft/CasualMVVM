@@ -31,6 +31,19 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
 
         public DataEntryMode Mode { get; set; } = DataEntryMode.New;
 
+        private int _ValidationConcernCount;
+
+        public int ValidationConcernCount
+        {
+            get { return _ValidationConcernCount; }
+            set
+            {
+                _ValidationConcernCount = value;
+                RaisePropertyChanged("ValidationConcernCount");
+            }
+        }
+
+
         private ObservableCollection<ValidationResult> _LastValidationState;
 
         public ObservableCollection<ValidationResult> LastValidationState
@@ -98,10 +111,12 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
             {
                 case DataEntryMode.New:
                     SaveNew(parameter);
+                    CloseWindow(true);
                     break;
 
                 case DataEntryMode.Edit:
                     SaveExisting(parameter);
+                    CloseWindow(true);
                     break;
 
                 default:
@@ -133,6 +148,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
             {
                 HasValidationConcern = false;
                 CurrentValidationConcern = null;
+                ValidationConcernCount = 0;
                 IsValidated = true;
                 return true;
             }
@@ -140,6 +156,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
             HasValidationConcern = true;
             CurrentValidationConcern =
                 validationResults.First().ErrorMessage;
+            ValidationConcernCount = validationResults.Count - 1;
             IsValidated = false;
             return false;
         }

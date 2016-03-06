@@ -12,6 +12,8 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
     interface IDataEntryViewModel : IViewModel, IValidatingViewModel
     {
         string CurrentValidationConcern { get; set; }
+
+        int ValidationConcernCount { get; set; }
         ObservableCollection<ValidationResult> LastValidationState { get; set; }
         DataEntryMode Mode { get; set; }
         ConditionalCommand SaveCommand { get; }
