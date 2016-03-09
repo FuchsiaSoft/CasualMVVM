@@ -19,7 +19,7 @@ namespace DemoApp.ViewModel
         }
 
         [Required(ErrorMessage ="Must specify a hair colour")]
-        [Displayable("Hair Colour:", DisplayType.SimpleTextBox, typeof(string), 0)]
+        [Displayable("Hair Colour:", DisplayType.SimpleTextBox, 0)]
         public string ColourName
         {
             get { return _HairColour.Colour; }

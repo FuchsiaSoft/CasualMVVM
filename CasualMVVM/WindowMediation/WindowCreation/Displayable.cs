@@ -179,14 +179,13 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         /// with the supplied displayType</exception>
         /// TODO: finish off these comments for parameters!
         public Displayable(string label, DisplayType displayType, 
-            Type propertyType, int displayOrder,
+            int displayOrder,
             string selectedItemPath = null, string displayMemberPath = null,
             string enabledBy = null)
         {
             _Label = label;
             _DisplayType = displayType;
             _DisplayMemberPath = displayMemberPath;
-            _PropertyType = propertyType;
             _SelectedItemPath = selectedItemPath;
             _EnabledBy = enabledBy;
             DisplayOrder = displayOrder;

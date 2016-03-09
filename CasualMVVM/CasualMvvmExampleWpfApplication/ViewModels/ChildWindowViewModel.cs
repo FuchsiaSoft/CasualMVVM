@@ -20,7 +20,7 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
 
         private string _FirstName;
         [Required(ErrorMessage ="Must specify a first name")]
-        [Displayable("First name", DisplayType.SimpleTextBox, typeof(string), 1)]
+        [Displayable("First name", DisplayType.SimpleTextBox, 1)]
         public string FirstName
         {
             get { return _FirstName; }
@@ -34,7 +34,7 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
 
         private string _LastName;
         [Required(ErrorMessage ="Must specify a last name")]
-        [Displayable("Last Name", DisplayType.SimpleTextBox, typeof(string), 2)]
+        [Displayable("Last Name", DisplayType.SimpleTextBox, 2)]
         public string LastName
         {
             get { return _LastName; }
@@ -47,7 +47,7 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
 
 
         private string _Notes;
-        [Displayable("Notes", DisplayType.LargeTextBox, typeof(string), 4)]
+        [Displayable("Notes", DisplayType.LargeTextBox, 4)]
         public string Notes
         {
             get { return _Notes; }
@@ -62,7 +62,7 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
         private int? _Age;
         [Required(ErrorMessage ="Must specify an age")]
         [Range(18,100,ErrorMessage ="Age must be between 18 and 100")]
-        [Displayable("Age", DisplayType.SimpleTextBox, typeof(int?), 3)]
+        [Displayable("Age", DisplayType.SimpleTextBox, 3)]
         public int? Age
         {
             get { return _Age; }
@@ -95,7 +95,7 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
             new HairColour() { ColourName = "Brown" },
             new HairColour() { ColourName = "White" }
         };
-        [Displayable("Hair Colour", DisplayType.ListBox, typeof(ObservableCollection<HairColour>), 4, displayMemberPath:"ColourName", selectedItemPath:"SelectedHairColour")]
+        [Displayable("Hair Colour", DisplayType.ListBox, 4, displayMemberPath:"ColourName", selectedItemPath:"SelectedHairColour")]
         public ObservableCollection<HairColour> HairColours
         {
             get { return _HairColours; }
@@ -106,7 +106,7 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
             }
         }
 
-        [Displayable("Add new hair colour",DisplayType.Button,typeof(string),5)]
+        [Displayable("Add new hair colour",DisplayType.Button,5)]
         public ConditionalCommand AddNewHairColourCommand { get { return new ConditionalCommand(AddNewHairColour, CanAddNewHairColour); } }
 
         private bool CanAddNewHairColour(object obj)
@@ -123,7 +123,7 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
 
 
         private bool _CheckValue;
-        [Displayable("Check box test", DisplayType.CheckBox, typeof(bool), 6)]
+        [Displayable("Check box test", DisplayType.CheckBox, 6)]
         public bool CheckValue
         {
             get { return _CheckValue; }
@@ -137,7 +137,7 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
 
 
         private DateTime? _ChosenDate;
-        [Displayable("A date picker", DisplayType.DatePicker, typeof(DateTime), 6)]
+        [Displayable("A date picker", DisplayType.DatePicker, 6)]
         [DateRange(2015,01,01,2015,12,31, ErrorMessage ="Date not in 2015")]
         public DateTime? ChosenDate
         {
@@ -151,7 +151,7 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
 
 
         private string _LinkedText;
-        [Displayable("Enabled by check", DisplayType.SimpleTextBox, typeof(string), 7, enabledBy:"CheckValue")]
+        [Displayable("Enabled by check", DisplayType.SimpleTextBox,  7, enabledBy:"CheckValue")]
         public string LinkedText
         {
             get { return _LinkedText; }

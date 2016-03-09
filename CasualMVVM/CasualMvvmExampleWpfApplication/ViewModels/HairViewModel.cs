@@ -14,7 +14,7 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
 
         private string _ColourName;
         [Required(ErrorMessage ="Must specify a hair colour")]
-        [Displayable("Hair colour", DisplayType.SimpleTextBox, typeof(string), 0)]
+        [Displayable("Hair colour", DisplayType.SimpleTextBox, 0)]
         public string ColourName
         {
             get { return _ColourName; }

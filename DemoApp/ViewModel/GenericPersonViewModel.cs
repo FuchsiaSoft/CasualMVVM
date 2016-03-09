@@ -36,7 +36,7 @@ namespace DemoApp.ViewModel
         }
 
         [Required(ErrorMessage = "Must specify a first name")]
-        [Displayable("First Name:", DisplayType.SimpleTextBox, typeof(string), 0)]
+        [Displayable("First Name:", DisplayType.SimpleTextBox, 0)]
         public string FirstName
         {
             get { return _Entity.FirstName; }
@@ -50,7 +50,7 @@ namespace DemoApp.ViewModel
 
 
         [Required(ErrorMessage = "Must specify a last name")]
-        [Displayable("Last Name:", DisplayType.SimpleTextBox, typeof(string), 1)]
+        [Displayable("Last Name:", DisplayType.SimpleTextBox, 1)]
         public string LastName
         {
             get { return _Entity.LastName; }
@@ -63,7 +63,7 @@ namespace DemoApp.ViewModel
 
         [Required(ErrorMessage = "Age must be specified")]
         [Range(18, int.MaxValue, ErrorMessage = "Age must be over 18")]
-        [Displayable("Age:", DisplayType.SimpleTextBox, typeof(int?), 2)]
+        [Displayable("Age:", DisplayType.SimpleTextBox, 2)]
         public int? Age
         {
             get { return _Entity.Age; }
@@ -88,7 +88,7 @@ namespace DemoApp.ViewModel
 
 
         private ObservableCollection<HairColour> _AvailableHairColours;
-        [Displayable("Hair Colour:", DisplayType.ComboBox, typeof(ObservableCollection<HairColour>), 3, "SelectedHairColour", "Colour")]
+        [Displayable("Hair Colour:", DisplayType.ComboBox, 3, "SelectedHairColour", "Colour")]
         public ObservableCollection<HairColour> AvailableHairColours
         {
             get { return _AvailableHairColours; }
@@ -100,7 +100,7 @@ namespace DemoApp.ViewModel
         }
 
 
-        [Displayable("New hair colour", DisplayType.Button, typeof(string), 4)]
+        [Displayable("New hair colour", DisplayType.Button, 4)]
         public ConditionalCommand AddNewHairColourCommand { get { return new ConditionalCommand(AddNewHairColour, CanAddNewHairColour); } }
 
         private bool CanAddNewHairColour(object obj)
@@ -117,7 +117,7 @@ namespace DemoApp.ViewModel
 
 
 
-        [Displayable("Checked Papers:", DisplayType.CheckBox, typeof(bool), 5)]
+        [Displayable("Checked Papers:", DisplayType.CheckBox, 5)]
         public bool CheckedPapers
         {
             get { return _Entity.CheckedPapers; }
@@ -129,7 +129,7 @@ namespace DemoApp.ViewModel
         }
 
 
-        [Displayable("Comments", DisplayType.LargeTextBox, typeof(string), 7, enabledBy: "CheckedPapers")]
+        [Displayable("Comments", DisplayType.LargeTextBox, 7, enabledBy: "CheckedPapers")]
         public string Comments
         {
             get { return _Entity.Comments; }
