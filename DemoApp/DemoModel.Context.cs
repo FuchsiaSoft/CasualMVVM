@@ -25,7 +25,7 @@ namespace DemoApp
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<HairColour> HairColours { get; set; }
+        public virtual DbSet<Person> People { get; set; }
     }
 }

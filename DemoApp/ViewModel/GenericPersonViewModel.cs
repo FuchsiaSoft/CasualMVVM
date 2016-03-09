@@ -8,77 +8,80 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DemoApp.ViewModel
 {
-    class PersonViewModel : DataEntryViewModelBase
+    class GenericPersonViewModel : DataEntryViewModelBase<Person, DemoModelContainer>
     {
-        private Person _Person;
-        public PersonViewModel(Person person)
+        public GenericPersonViewModel(Person person, DataEntryMode mode) : base(person, mode)
         {
-            _Person = person;
-            Load();
+            //TODO: implement any custom logic for consutrction
+            //here.  Base class will already populate the
+            //protected _Entity field and call the Load()
+            //method below
         }
 
-        private void Load()
+        public override void Load()
         {
             using (DemoModelContainer db = new DemoModelContainer())
             {
                 AvailableHairColours = new ObservableCollection<HairColour>
                     (db.HairColours);
+
+                SelectedHairColour = AvailableHairColours
+                    .FirstOrDefault(h => h.Id == _Entity.HairColour_Id);
             }
         }
 
-        [Required(ErrorMessage ="Must specify a first name")]
+        [Required(ErrorMessage = "Must specify a first name")]
         [Displayable("First Name:", DisplayType.SimpleTextBox, typeof(string), 0)]
         public string FirstName
         {
-            get { return _Person.FirstName; }
+            get { return _Entity.FirstName; }
             set
             {
-                _Person.FirstName = value;
+                _Entity.FirstName = value;
                 RaisePropertyChanged("FirstName");
             }
         }
 
 
 
-        [Required(ErrorMessage ="Must specify a last name")]
+        [Required(ErrorMessage = "Must specify a last name")]
         [Displayable("Last Name:", DisplayType.SimpleTextBox, typeof(string), 1)]
         public string LastName
         {
-            get { return _Person.LastName; }
+            get { return _Entity.LastName; }
             set
             {
-                _Person.LastName = value;
+                _Entity.LastName = value;
                 RaisePropertyChanged("LastName");
             }
         }
 
-        [Required(ErrorMessage ="Age must be specified")]
-        [Range(18,int.MaxValue, ErrorMessage ="Age must be over 18")]
+        [Required(ErrorMessage = "Age must be specified")]
+        [Range(18, int.MaxValue, ErrorMessage = "Age must be over 18")]
         [Displayable("Age:", DisplayType.SimpleTextBox, typeof(int?), 2)]
         public int? Age
         {
-            get { return _Person.Age; }
+            get { return _Entity.Age; }
             set
             {
-                _Person.Age = value;
+                _Entity.Age = value;
                 RaisePropertyChanged("Age");
             }
         }
 
 
-        [Required(ErrorMessage ="Must specify a hair colour")]
+        [Required(ErrorMessage = "Must specify a hair colour")]
         public HairColour SelectedHairColour
         {
-            get { return _Person.HairColour; }
+            get { return _Entity.HairColour; }
             set
             {
-                _Person.HairColour = value;
+                _Entity.HairColour = value;
                 RaisePropertyChanged("SelectedHairColour");
             }
         }
@@ -117,47 +120,24 @@ namespace DemoApp.ViewModel
         [Displayable("Checked Papers:", DisplayType.CheckBox, typeof(bool), 5)]
         public bool CheckedPapers
         {
-            get { return _Person.CheckedPapers; }
+            get { return _Entity.CheckedPapers; }
             set
             {
-                _Person.CheckedPapers = value;
+                _Entity.CheckedPapers = value;
                 RaisePropertyChanged("CheckedPapers");
             }
         }
 
 
-        [Displayable("Comments", DisplayType.LargeTextBox, typeof(string), 7, enabledBy:"CheckedPapers")]
+        [Displayable("Comments", DisplayType.LargeTextBox, typeof(string), 7, enabledBy: "CheckedPapers")]
         public string Comments
         {
-            get { return _Person.Comments; }
+            get { return _Entity.Comments; }
             set
             {
-                _Person.Comments = value;
+                _Entity.Comments = value;
                 RaisePropertyChanged("Comments");
             }
         }
-
-
-
-
-        protected override void SaveExisting(object parameter)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void SaveNew(object parameter)
-        {
-            using (DemoModelContainer db = new DemoModelContainer())
-            {
-                DbSet set = db.Set(SelectedHairColour.GetType());
-
-                
-
-                db.HairColours.Attach(_Person.HairColour);
-                db.People.Add(_Person);
-                db.SaveChanges();
-            }
-        }
-
     }
 }

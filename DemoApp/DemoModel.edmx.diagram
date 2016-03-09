@@ -5,9 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="954bc182402a466cbf32ca43420bf3df" Name="Diagram1" >
-        <EntityTypeShape EntityType="DemoModel.Person" Width="1.5" PointX="1.125" PointY="0.875" />
-        <EntityTypeShape EntityType="DemoModel.HairColour" Width="1.5" PointX="3.5" PointY="2.625" />
-        <AssociationConnector Association="DemoModel.HairColourPerson" />
+        <EntityTypeShape EntityType="DemoModel.HairColour" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="DemoModel.Person" Width="1.5" PointX="3.25" PointY="2" />
+        <AssociationConnector Association="DemoModel.FK_HairColourPerson" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

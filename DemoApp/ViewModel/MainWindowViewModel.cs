@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace DemoApp.ViewModel
 {
@@ -50,10 +51,27 @@ namespace DemoApp.ViewModel
 
         private void NewPerson(object obj)
         {
-            PersonViewModel childVM = new PersonViewModel(new Person());
+            GenericPersonViewModel childVM = new GenericPersonViewModel(new Person(), DataEntryMode.New);
+            //PersonViewModel childVM = new PersonViewModel(new Person());
             childVM.SetExitAction(RefreshData);
             childVM.ShowWindow(WindowType.NewAutoWindowRequest);
         }
+
+
+        public ConditionalCommand EditPersonCommand { get { return new ConditionalCommand(EditPerson, CanEditPerson); } }
+
+        private bool CanEditPerson(object obj)
+        {
+            return SelectedPerson != null;
+        }
+
+        private void EditPerson(object obj)
+        {
+            GenericPersonViewModel childVM = new GenericPersonViewModel(SelectedPerson, DataEntryMode.Edit);
+            childVM.SetExitAction(RefreshData);
+            childVM.ShowWindow(WindowType.NewAutoWindowRequest);
+        }
+
 
         private void RefreshData()
         {

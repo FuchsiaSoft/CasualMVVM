@@ -12,23 +12,23 @@ namespace DemoApp.ViewModel
     class HairColourViewModel : DataEntryViewModelBase
     {
         private HairColour _HairColour;
+
         public HairColourViewModel(HairColour hairColour)
         {
             _HairColour = hairColour;
         }
 
         [Required(ErrorMessage ="Must specify a hair colour")]
-        [Displayable("Colour", DisplayType.SimpleTextBox, typeof(string), 0)]
-        public string Colour
+        [Displayable("Hair Colour:", DisplayType.SimpleTextBox, typeof(string), 0)]
+        public string ColourName
         {
             get { return _HairColour.Colour; }
             set
             {
                 _HairColour.Colour = value;
-                RaisePropertyChanged("Colour");
+                RaisePropertyChanged("ColourName");
             }
         }
-
 
         protected override void SaveExisting(object parameter)
         {
@@ -37,6 +37,8 @@ namespace DemoApp.ViewModel
 
         protected override void SaveNew(object parameter)
         {
+
+
             using (DemoModelContainer db = new DemoModelContainer())
             {
                 db.HairColours.Add(_HairColour);

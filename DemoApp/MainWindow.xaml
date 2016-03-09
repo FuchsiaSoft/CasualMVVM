@@ -12,12 +12,20 @@
     </Window.DataContext>
     <Grid>
         <DockPanel>
-            <Button DockPanel.Dock="Bottom" Margin="5" HorizontalAlignment="Right"
-                    Content="Add new person" Padding="5"
-                    Command="{Binding NewPersonCommand}"/>
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Margin="5" HorizontalAlignment="Right"
+                        Content="Add new person" Padding="5"
+                        Command="{Binding NewPersonCommand}"/>
+                <Button Margin="5" HorizontalAlignment="Right"
+                        Content="Edit person" Padding="5"
+                        Command="{Binding EditPersonCommand}"/>
+            </StackPanel>
+            
             <DataGrid ItemsSource="{Binding AvailablePeople}"
                       SelectedItem="{Binding SelectedPerson}"
-                      SelectionMode="Single"/>
+                      SelectionMode="Single" IsReadOnly="True"
+                      GridLinesVisibility="None" Margin="5">
+            </DataGrid>
         </DockPanel>
     </Grid>
 </Window>

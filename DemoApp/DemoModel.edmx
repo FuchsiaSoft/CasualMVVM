@@ -49,36 +49,45 @@
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DemoModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="DemoModelContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="People" EntityType="DemoModel.Person" />
           <EntitySet Name="HairColours" EntityType="DemoModel.HairColour" />
-          <AssociationSet Name="HairColourPerson" Association="DemoModel.HairColourPerson">
+          <EntitySet Name="People" EntityType="DemoModel.Person" />
+          <AssociationSet Name="FK_HairColourPerson" Association="DemoModel.FK_HairColourPerson">
             <End Role="HairColour" EntitySet="HairColours" />
             <End Role="Person" EntitySet="People" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Person">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="Age" Type="Int32" Nullable="true" />
-          <Property Name="CheckedPapers" Type="Boolean" Nullable="false" />
-          <Property Name="Comments" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="HairColour" Relationship="DemoModel.HairColourPerson" FromRole="Person" ToRole="HairColour" />
-        </EntityType>
         <EntityType Name="HairColour">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Colour" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="People" Relationship="DemoModel.HairColourPerson" FromRole="HairColour" ToRole="Person" />
+          <Property Name="Colour" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="People" Relationship="DemoModel.FK_HairColourPerson" FromRole="HairColour" ToRole="Person" />
         </EntityType>
-        <Association Name="HairColourPerson">
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="CheckedPapers" Type="Boolean" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HairColour_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="HairColour" Relationship="DemoModel.FK_HairColourPerson" FromRole="Person" ToRole="HairColour" />
+        </EntityType>
+        <Association Name="FK_HairColourPerson">
           <End Type="DemoModel.HairColour" Role="HairColour" Multiplicity="1" />
           <End Type="DemoModel.Person" Role="Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HairColour">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="HairColour_Id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -86,35 +95,28 @@
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="DemoModelStoreContainer" CdmEntityContainer="DemoModelContainer">
-    <EntitySetMapping Name="People">
-      <EntityTypeMapping TypeName="IsTypeOf(DemoModel.Person)">
-        <MappingFragment StoreEntitySet="People">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="Age" ColumnName="Age" />
-          <ScalarProperty Name="CheckedPapers" ColumnName="CheckedPapers" />
-          <ScalarProperty Name="Comments" ColumnName="Comments" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="HairColours">
-      <EntityTypeMapping TypeName="IsTypeOf(DemoModel.HairColour)">
-        <MappingFragment StoreEntitySet="HairColours">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Colour" ColumnName="Colour" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="HairColourPerson" TypeName="DemoModel.HairColourPerson" StoreEntitySet="People">
-      <EndProperty Name="HairColour">
-        <ScalarProperty Name="Id" ColumnName="HairColour_Id" />
-      </EndProperty>
-      <EndProperty Name="Person">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-  </EntityContainerMapping>
+          <EntitySetMapping Name="HairColours">
+            <EntityTypeMapping TypeName="DemoModel.HairColour">
+              <MappingFragment StoreEntitySet="HairColours">
+                <ScalarProperty Name="Colour" ColumnName="Colour" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="DemoModel.Person">
+              <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="HairColour_Id" ColumnName="HairColour_Id" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="CheckedPapers" ColumnName="CheckedPapers" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->

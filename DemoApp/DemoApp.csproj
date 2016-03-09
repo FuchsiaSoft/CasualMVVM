@@ -87,6 +87,7 @@
     <Compile Include="Person.cs">
       <DependentUpon>DemoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\GenericPersonViewModel.cs" />
     <Compile Include="ViewModel\HairColourViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />

@@ -331,6 +331,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
             };
 
             saveButton.SetBinding(Button.CommandProperty, "SaveCommand");
+            cancelButton.SetBinding(Button.CommandProperty, "CancelCommand");
 
             DockPanel.SetDock(buttonDock, Dock.Bottom);
             buttonDock.Children.Add(saveButton);

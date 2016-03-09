@@ -101,6 +101,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
             if (!_HasActionInvoked && _ExitAction != null)
             {
                 _ExitAction.Invoke(parameter);
+                _HasActionInvoked = true;
             }
         }
 

@@ -18,6 +18,8 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         DataEntryMode Mode { get; set; }
         ConditionalCommand SaveCommand { get; }
 
+        SimpleCommand CancelCommand { get; }
+
         bool CanSave(object parameter);
 
         void Save(object parameter);
