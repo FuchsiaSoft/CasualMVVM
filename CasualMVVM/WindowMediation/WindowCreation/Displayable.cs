@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
 {
@@ -93,11 +94,27 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         };
 
         /// <summary>
+        /// The list of allowable Types for a <see cref="DisplayType.ComboBox"/>
+        /// </summary>
+        private static IEnumerable<Type> _ComboBoxTypes = new List<Type>()
+        {
+            typeof(IEnumerable<>)
+        };
+
+        /// <summary>
+        /// The list of allowable types for a <see cref="DisplayType.ListBox"/>
+        /// </summary>
+        private static IEnumerable<Type> _ListBoxTypes = new List<Type>()
+        {
+            typeof(IEnumerable<>)
+        };
+
+        /// <summary>
         /// The list of allowable Types for a <see cref="DisplayType.Button"/>
         /// </summary>
         private static IEnumerable<Type> _ButtonTypes = new List<Type>()
         {
-            typeof(string)
+            typeof(ICommand)
         };
 
         /// <summary>
@@ -173,34 +190,6 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
             _SelectedItemPath = selectedItemPath;
             _EnabledBy = enabledBy;
             DisplayOrder = displayOrder;
-
-            ValidateDisplayAttribute(_DisplayType, _PropertyType);
-        }
-
-        /// <summary>
-        /// Validates the attribute to make sure that the supplied displaytype and
-        /// property type match.  e.g. making sure that a string property is
-        /// not going to be bound to a checkbox
-        /// </summary>
-        /// <param name="displayType"></param>
-        /// <param name="propertyType"></param>
-        private void ValidateDisplayAttribute(DisplayType displayType, Type propertyType)
-        {
-            if (displayType == DisplayType.ComboBox ||
-                displayType == DisplayType.ListBox)
-            {
-                return;
-                //TODO: find a decent way to validate for combo
-                //boxes & listboxes, as they're going to be a variety of
-                //generic types
-            }
-
-            IEnumerable<Type> allowableTypes = GetAllowableTypes(displayType);
-
-            if (allowableTypes.Any(t=>t == propertyType) == false)
-            {
-                throw DisplayTypeException.GetFromDisplayType(displayType, allowableTypes);
-            }
         }
 
         /// <summary>
@@ -208,7 +197,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         /// </summary>
         /// <param name="displayType"></param>
         /// <returns></returns>
-        private IEnumerable<Type> GetAllowableTypes(DisplayType displayType)
+        internal IEnumerable<Type> GetAllowableTypes(DisplayType displayType)
         {
             IEnumerable<Type> allowableTypes = null;
 
@@ -222,11 +211,12 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                     allowableTypes = _LargeTextBoxTypes;
                     break;
 
-                    //TODO: as per comment above in ValidateDisplayAttribute
                 case DisplayType.ComboBox:
+                    allowableTypes = _ComboBoxTypes;
                     break;
 
                 case DisplayType.ListBox:
+                    allowableTypes = _ListBoxTypes;
                     break;
 
                 case DisplayType.CheckBox:

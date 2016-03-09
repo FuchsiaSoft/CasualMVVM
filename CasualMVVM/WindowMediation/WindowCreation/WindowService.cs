@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -22,6 +23,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
     /// </summary>
     public class WindowService : IWindowService
     {
+
         private const string NO_PROPERTIES_MESSAGE =
             "No properties were found that have the Displayable attribute, either review " +
             "your code to make sure at least one property is Displayable, or request a window " +
@@ -83,17 +85,88 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         {
             IEnumerable<PropertyInfo> properties =
                 viewModel.GetType().GetProperties().Where
-                (p => Attribute.IsDefined(p, typeof(Displayable)));
+                (p => Attribute.IsDefined(p, typeof(Displayable), true));
 
             if (properties.Count() == 0)
             {
                 throw new InvalidOperationException(NO_PROPERTIES_MESSAGE);
             }
 
+            ValidatePropertyAttributes(properties);
+
             IList<Displayable> attributes = new List<Displayable>();
 
             DrawControls(window, properties, settings, viewModel);
 
+        }
+
+        /// <summary>
+        /// Checks to make sure that the property <see cref="Displayable"/> attributes
+        /// are valid for this WindowService
+        /// </summary>
+        /// <param name="properties">The list pf properties to check.</param>
+        private void ValidatePropertyAttributes(IEnumerable<PropertyInfo> properties)
+        {
+            foreach (PropertyInfo property in properties)
+            {
+                Displayable attribute = property.GetCustomAttribute<Displayable>(true);
+
+                switch (attribute.GetDisplayType())
+                {
+                    case DisplayType.SimpleTextBox:
+                    case DisplayType.LargeTextBox:
+                    case DisplayType.CheckBox:
+                    case DisplayType.DatePicker:
+                        CheckType(property, attribute);
+                        break;
+
+
+                    case DisplayType.ComboBox:
+                    case DisplayType.ListBox:
+                    case DisplayType.Button:
+                        CheckTypeInterfaces(property, attribute);
+                        break;
+                }
+            }
+        }
+
+        private static void CheckTypeInterfaces(PropertyInfo property, Displayable attribute)
+        {
+            Type[] interfaces = property.PropertyType.GetInterfaces();
+            IEnumerable<Type> allowableTypes = attribute.GetAllowableTypes(attribute.GetDisplayType());
+
+            //interfaces that are generic are returned as their specified type, need to
+            //make sure they're generic for this test.
+            for (int i = 0; i < interfaces.Count(); i++)
+            {
+                if (interfaces[i].IsGenericType)
+                {
+                    interfaces[i] = interfaces[i].GetGenericTypeDefinition();
+                }
+            }
+
+            if (!allowableTypes.Intersect(interfaces).Any())
+            {
+                throw DisplayTypeException.GetFromDisplayType(attribute.GetDisplayType(), allowableTypes);
+            }
+        }
+
+        /// <summary>
+        /// Performs a straightforward type check.  Not used for checking against whether
+        /// a property type implements an interface.
+        /// </summary>
+        /// <param name="property"></param>
+        /// <param name="attribute"></param>
+        private static void CheckType(PropertyInfo property, Displayable attribute)
+        {
+            IEnumerable<Type> allowableTypes = attribute.GetAllowableTypes(attribute.GetDisplayType());
+            Type propertyType = property.PropertyType;
+
+            if (!allowableTypes.Any(t => t == propertyType))
+            {
+                throw DisplayTypeException.GetFromDisplayType
+                    (attribute.GetDisplayType(), allowableTypes);
+            }
         }
 
         protected virtual void DrawControls(Window window, IEnumerable<PropertyInfo> properties,
