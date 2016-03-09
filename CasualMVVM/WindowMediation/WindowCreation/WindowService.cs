@@ -44,6 +44,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
             Window window = new Window();
 
             window.DataContext = viewModel;
+            viewModel.SetActiveWindow(window, true);
 
             switch (type)
             {
@@ -67,8 +68,6 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                     window.ShowDialog();
                     break;
             }
-
-            viewModel.ActiveWindow = window;
         }
 
         /// <summary>
@@ -282,89 +281,31 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                 switch (displayAttribute.GetDisplayType())
                 {
                     case DisplayType.SimpleTextBox:
-                        TextBox simpleBox = new TextBox()
-                        {
-                            Margin = new Thickness(5)
-                        };
-
-                        BindingOperations.SetBinding(simpleBox, TextBox.TextProperty, binding);
-                        controlDock.Children.Add(simpleBox);
-
+                        AddSimpleTextBox(controlDock, binding);
                         break;
 
                     case DisplayType.LargeTextBox:
-                        TextBox largeBox = new TextBox()
-                        {
-                            Margin = new Thickness(5),
-                            Height = 90,
-                            VerticalContentAlignment = VerticalAlignment.Top,
-                            TextWrapping = TextWrapping.Wrap,
-                            AcceptsReturn = true,
-                            VerticalScrollBarVisibility = ScrollBarVisibility.Visible
-                        };
-
-                        BindingOperations.SetBinding(largeBox, TextBox.TextProperty, binding);
-                        controlDock.Children.Add(largeBox);
+                        AddLargeTextBox(controlDock, binding);
                         break;
 
                     case DisplayType.ComboBox:
-                        ComboBox comboBox = new ComboBox()
-                        {
-                            Margin = new Thickness(5),
-                            DisplayMemberPath = displayAttribute.GetDisplayMemberPath()
-                        };
-
-                        BindingOperations.SetBinding(comboBox, ComboBox.ItemsSourceProperty, binding);
-                        comboBox.SetBinding(ComboBox.SelectedItemProperty, displayAttribute.GetSelectedItemPath());
-                        controlDock.Children.Add(comboBox);
+                        AddComboBox(displayAttribute, controlDock, binding);
                         break;
 
                     case DisplayType.ListBox:
-                        ListBox listBox = new ListBox()
-                        {
-                            Margin = new Thickness(5),
-                            DisplayMemberPath = displayAttribute.GetDisplayMemberPath(),
-                            Height=100
-                        };
-
-                        BindingOperations.SetBinding(listBox, ListBox.ItemsSourceProperty, binding);
-                        listBox.SetBinding(ListBox.SelectedItemProperty, displayAttribute.GetSelectedItemPath());
-                        controlDock.Children.Add(listBox);
+                        AddListBox(displayAttribute, controlDock, binding);
                         break;
 
                     case DisplayType.CheckBox:
-                        CheckBox checkBox = new CheckBox()
-                        {
-                            Margin = new Thickness(5),
-                            HorizontalAlignment = HorizontalAlignment.Left
-                        };
-
-                        BindingOperations.SetBinding(checkBox, CheckBox.IsCheckedProperty, binding);
-                        controlDock.Children.Add(checkBox);
+                        AddCheckBox(controlDock, binding);
                         break;
 
                     case DisplayType.DatePicker:
-                        DatePicker datePicker = new DatePicker()
-                        {
-                            Margin = new Thickness(5)
-                        };
-
-                        BindingOperations.SetBinding(datePicker, DatePicker.SelectedDateProperty, binding);
-                        controlDock.Children.Add(datePicker);
+                        AddDatePicker(controlDock, binding);
                         break;
 
                     case DisplayType.Button:
-                        Button button = new Button()
-                        {
-                            Margin = new Thickness(5),
-                            Padding = new Thickness(3),
-                            Content = displayAttribute.GetLabel(),
-                            HorizontalAlignment = HorizontalAlignment.Right
-                        };
-
-                        BindingOperations.SetBinding(button, Button.CommandProperty, binding);
-                        DockPanel.SetDock(button, Dock.Right);
-                        controlDock.Children.Add(button);
+                        Button(displayAttribute, controlDock, binding);
                         break;
                 }
 
@@ -376,6 +317,98 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
             {
                 stackPanel.Children.Add(controlDock);
             }
+        }
+
+        private static void Button(Displayable displayAttribute, DockPanel controlDock, Binding binding)
+        {
+            Button button = new Button()
+            {
+                Margin = new Thickness(5),
+                Padding = new Thickness(3),
+                Content = displayAttribute.GetLabel(),
+                HorizontalAlignment = HorizontalAlignment.Right
+            };
+
+            BindingOperations.SetBinding(button, System.Windows.Controls.Button.CommandProperty, binding);
+            DockPanel.SetDock(button, Dock.Right);
+            controlDock.Children.Add(button);
+        }
+
+        private static void AddDatePicker(DockPanel controlDock, Binding binding)
+        {
+            DatePicker datePicker = new DatePicker()
+            {
+                Margin = new Thickness(5)
+            };
+
+            BindingOperations.SetBinding(datePicker, DatePicker.SelectedDateProperty, binding);
+            controlDock.Children.Add(datePicker);
+        }
+
+        private static void AddCheckBox(DockPanel controlDock, Binding binding)
+        {
+            CheckBox checkBox = new CheckBox()
+            {
+                Margin = new Thickness(5),
+                HorizontalAlignment = HorizontalAlignment.Left
+            };
+
+            BindingOperations.SetBinding(checkBox, CheckBox.IsCheckedProperty, binding);
+            controlDock.Children.Add(checkBox);
+        }
+
+        private static void AddListBox(Displayable displayAttribute, DockPanel controlDock, Binding binding)
+        {
+            ListBox listBox = new ListBox()
+            {
+                Margin = new Thickness(5),
+                DisplayMemberPath = displayAttribute.GetDisplayMemberPath(),
+                Height = 100
+            };
+
+            BindingOperations.SetBinding(listBox, ListBox.ItemsSourceProperty, binding);
+            listBox.SetBinding(ListBox.SelectedItemProperty, displayAttribute.GetSelectedItemPath());
+            controlDock.Children.Add(listBox);
+        }
+
+        private static void AddComboBox(Displayable displayAttribute, DockPanel controlDock, Binding binding)
+        {
+            ComboBox comboBox = new ComboBox()
+            {
+                Margin = new Thickness(5),
+                DisplayMemberPath = displayAttribute.GetDisplayMemberPath()
+            };
+
+            BindingOperations.SetBinding(comboBox, ComboBox.ItemsSourceProperty, binding);
+            comboBox.SetBinding(ComboBox.SelectedItemProperty, displayAttribute.GetSelectedItemPath());
+            controlDock.Children.Add(comboBox);
+        }
+
+        private static void AddLargeTextBox(DockPanel controlDock, Binding binding)
+        {
+            TextBox largeBox = new TextBox()
+            {
+                Margin = new Thickness(5),
+                Height = 90,
+                VerticalContentAlignment = VerticalAlignment.Top,
+                TextWrapping = TextWrapping.Wrap,
+                AcceptsReturn = true,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Visible
+            };
+
+            BindingOperations.SetBinding(largeBox, TextBox.TextProperty, binding);
+            controlDock.Children.Add(largeBox);
+        }
+
+        private static void AddSimpleTextBox(DockPanel controlDock, Binding binding)
+        {
+            TextBox simpleBox = new TextBox()
+            {
+                Margin = new Thickness(5)
+            };
+
+            BindingOperations.SetBinding(simpleBox, TextBox.TextProperty, binding);
+            controlDock.Children.Add(simpleBox);
         }
 
         private static void AddStandardButtons(DockPanel root)
@@ -403,8 +436,8 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                 Padding = new Thickness(5)
             };
 
-            saveButton.SetBinding(Button.CommandProperty, "SaveCommand");
-            cancelButton.SetBinding(Button.CommandProperty, "CancelCommand");
+            saveButton.SetBinding(System.Windows.Controls.Button.CommandProperty, "SaveCommand");
+            cancelButton.SetBinding(System.Windows.Controls.Button.CommandProperty, "CancelCommand");
 
             DockPanel.SetDock(buttonDock, Dock.Bottom);
             buttonDock.Children.Add(saveButton);

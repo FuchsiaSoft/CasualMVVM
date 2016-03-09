@@ -141,11 +141,6 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         private string _SelectedItemPath;
 
         /// <summary>
-        /// The <see cref="Type"/> of the property
-        /// </summary>
-        private Type _PropertyType;
-
-        /// <summary>
         /// The name of the property that the control
         /// for this property should have its IsEnabled
         /// property bound to.
@@ -168,8 +163,6 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         /// the label that will be created for the control</param>
         /// <param name="displayType">The type of control
         /// to use</param>
-        /// <param name="propertyType">The <see cref="Type"/> of
-        /// the property</param>
         /// <param name="selectedItemPath">The binding path (name of property)
         /// for the selected item, only to be used for ComboBoxes</param>
         /// <param name="displayMemberPath">The displaymemberpath to use for
@@ -256,16 +249,6 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         public string GetLabel()
         {
             return _Label;
-        }
-
-        /// <summary>
-        /// Returns the <see cref="Type"/> of
-        /// the property for this attribute
-        /// </summary>
-        /// <returns></returns>
-        public Type GetPropertyType()
-        {
-            return _PropertyType;
         }
 
         public string GetEnabledBy()

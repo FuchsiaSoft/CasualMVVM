@@ -31,7 +31,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         public Window ActiveWindow
         {
             get { return _ActiveWindow; }
-            set
+            private set
             {
                 _ActiveWindow = value;
                 if (InvokeOnWindowClose)
@@ -44,7 +44,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// <summary>
         /// For documentaiton refer to <see cref="IViewModel.InvokeOnWindowClose"/>
         /// </summary>
-        public bool InvokeOnWindowClose { get; set; }
+        public bool InvokeOnWindowClose { get; private set; }
 
         protected virtual void _ActiveWindow_Closed(object sender, EventArgs e)
         {
@@ -139,7 +139,11 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
             WindowMediator.RaiseMessage(type, this, settings);
         }
 
-
+        public void SetActiveWindow(Window window, bool invokeOnClose)
+        {
+            InvokeOnWindowClose = invokeOnClose;
+            ActiveWindow = window;
+        }
         /// <summary>
         /// Deconstructor just invokes exit action if it hasn't already.
         /// </summary>

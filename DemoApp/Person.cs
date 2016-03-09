@@ -20,7 +20,6 @@ namespace DemoApp
         public Nullable<int> Age { get; set; }
         public bool CheckedPapers { get; set; }
         public string Comments { get; set; }
-        public int HairColour_Id { get; set; }
     
         public virtual HairColour HairColour { get; set; }
     }

@@ -25,14 +25,11 @@ namespace DemoApp.ViewModel
 
         public override void Load()
         {
-            using (DemoModelContainer db = new DemoModelContainer())
-            {
-                AvailableHairColours = new ObservableCollection<HairColour>
-                    (db.HairColours);
+            AvailableHairColours = new ObservableCollection<HairColour>
+                (_DbContext.HairColours);
 
-                SelectedHairColour = AvailableHairColours
-                    .FirstOrDefault(h => h.Id == _Entity.HairColour_Id);
-            }
+            SelectedHairColour = AvailableHairColours
+                .FirstOrDefault(h => h == _Entity.HairColour);
         }
 
         [Required(ErrorMessage = "Must specify a first name")]
@@ -111,10 +108,9 @@ namespace DemoApp.ViewModel
         private void AddNewHairColour(object obj)
         {
             HairColourViewModel childVM = new HairColourViewModel(new HairColour());
-            childVM.SetExitAction(Load);
+            childVM.SetExitAction(Initialise);
             childVM.ShowWindow(WindowType.NewAutoWindowRequest);
         }
-
 
 
         [Displayable("Checked Papers:", DisplayType.CheckBox, 5)]

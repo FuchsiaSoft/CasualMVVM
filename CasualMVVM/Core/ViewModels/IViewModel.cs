@@ -18,13 +18,13 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// property may return null, and will only be set if the
         /// <see cref="ShowWindow"/> method is called.
         /// </summary>
-        Window ActiveWindow { get; set; }
+        Window ActiveWindow { get; }
 
         /// <summary>
         /// Gets or sets the flag which controls whether the <see cref="IViewModel"/>
         /// will invoke its exit <see cref="Action"/> on <see cref="Window.Closed"/>
         /// </summary>
-        bool InvokeOnWindowClose { get; set; }
+        bool InvokeOnWindowClose { get; }
 
         /// <summary>
         /// Uses the <see cref="WindowMediator"/> to open a new blank <see cref="Window"/>, and
@@ -93,5 +93,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// provided, which binds to this property.
         /// </summary>
         string WindowTitle { get; set; }
+
+        void SetActiveWindow(Window window, bool invokeOnClose);
     }
 }

@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="954bc182402a466cbf32ca43420bf3df" Name="Diagram1" >
         <EntityTypeShape EntityType="DemoModel.HairColour" Width="1.5" PointX="0.75" PointY="1.375" />
-        <EntityTypeShape EntityType="DemoModel.Person" Width="1.5" PointX="3.25" PointY="2" />
+        <EntityTypeShape EntityType="DemoModel.Person" Width="1.5" PointX="2.875" PointY="2.375" />
         <AssociationConnector Association="DemoModel.FK_HairColourPerson" />
       </Diagram>
     </edmx:Diagrams>
