@@ -51,6 +51,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
             _Service = service;
 
             WindowMediator.WindowRequested += WindowMessenger_WindowRequested;
+            WindowMediator.SearchWindowRequested += WindowMediator_SearchWindowRequested;
         }
 
         /// <summary>
@@ -63,6 +64,15 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         {
             StartListening(new WindowService());
         }
+
+
+        private static void WindowMediator_SearchWindowRequested(object sender, EventArgs e)
+        {
+            SearchWindowEventArgs args = (SearchWindowEventArgs)e;
+            _Service.ShowSearchWindow(args.ViewModel);
+        }
+
+        
 
         /// <summary>
         /// When an event is spotted, the <see cref="System.Windows.Window"/> 

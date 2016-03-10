@@ -18,5 +18,11 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         /// the window for</param>
         /// <param name="type">The <see cref="WindowType"/> to open</param>
         void ShowWindow(IViewModel ViewModel, WindowType type, IWindowSettings settings);
+
+        /// <summary>
+        /// Creates a search window
+        /// </summary>
+        /// <param name="viewModel"></param>
+        void ShowSearchWindow(IViewModel viewModel);
     }
 }

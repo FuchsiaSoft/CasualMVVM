@@ -41,6 +41,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         /// Gets or sets the <see cref="WindowType"/>
         /// </summary>
         public WindowType WindowType { get; set; }
+
         /// <summary>
         /// Gets or sets the ViewModel that needs a window requesting for it
         /// </summary>
@@ -52,6 +53,18 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         /// </summary>
         public IWindowSettings Settings { get; set; }
 
+    }
+
+    /// <summary>
+    /// Derived from EventArgs to be passed through when Mediator raises
+    /// a SearchWindow request
+    /// </summary>
+    internal class SearchWindowEventArgs : EventArgs
+    {
+        /// <summary>
+        /// Gets or sets the ViewModel that needs a search window requesting
+        /// </summary>
+        public IViewModel ViewModel { get; set; }
     }
 
     /// <summary>
@@ -69,6 +82,12 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         /// of <see cref="WindowMediatorEventArgs"/> to access the viewmodel that made the request
         /// </summary>
         internal static event EventHandler WindowRequested;
+
+        /// <summary>
+        /// The event that is raised when the <see cref="SearchViewModel{T}"/> wants a new search window
+        /// this is only used by that one use case.
+        /// </summary>
+        internal static event EventHandler SearchWindowRequested;
 
         /// <summary>
         /// Raises the event (<see cref="WindowRequested"/>) requesting a new window be opened for the viewmodel.
@@ -89,6 +108,26 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
                 };
 
                 handler(viewModel, args);
+            }
+        }
+
+        /// <summary>
+        /// Raises the <see cref="SearchWindowRequested"/> event requesting a new
+        /// search window
+        /// </summary>
+        /// <param name="viewModel"></param>
+        internal static void RaiseSearchMessage(IViewModel viewModel)
+        {
+            EventHandler handler = SearchWindowRequested;
+
+            if (handler != null)
+            {
+                SearchWindowEventArgs args = new SearchWindowEventArgs()
+                {
+                    ViewModel = viewModel
+                };
+
+                handler(viewModel, null);
             }
         }
     }

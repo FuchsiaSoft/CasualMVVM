@@ -125,7 +125,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// <summary>
         /// For documentation refer to <see cref="IViewModel.ShowWindow"/>
         /// </summary>
-        public void ShowWindow()
+        public virtual void ShowWindow()
         {
             ShowWindow(WindowType.NewWindowRequest);
         }
@@ -134,7 +134,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// For documentation refer to <see cref="IViewModel.ShowWindow(WindowType)"/>
         /// </summary>
         /// <param name="type"></param>
-        public void ShowWindow(WindowType type, IWindowSettings settings = null)
+        public virtual void ShowWindow(WindowType type, IWindowSettings settings = null)
         {
             WindowMediator.RaiseMessage(type, this, settings);
         }

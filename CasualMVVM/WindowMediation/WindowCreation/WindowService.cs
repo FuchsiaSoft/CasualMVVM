@@ -29,6 +29,10 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
             "your code to make sure at least one property is Displayable, or request a window " +
             "that is not auto generated";
 
+        private const string WRONG_VIEWMODEL_TYPE_MESSAGE =
+            "The IViewModel supplied does not implement IDataEntryViewModel, this interface is " +
+            "the minimum requirement for an auto generated window.";
+
         /// <summary>
         /// For documentation refer to <see cref="IWindowService"/>
         /// This method can be overridden in a derived class to allow
@@ -59,14 +63,30 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                     break;
 
                 case WindowType.NewAutoWindowRequest:
+                    CheckViewModelType(viewModel);
                     CreateWindow(window, viewModel, settings);
                     window.Show();
                     break;
 
                 case WindowType.NewModalAutoWindowRequest:
+                    CheckViewModelType(viewModel);
                     CreateWindow(window, viewModel, settings);
                     window.ShowDialog();
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Checks to make sure that the viewmodel implements IDataEntryViewModel
+        /// </summary>
+        /// <param name="viewModel"></param>
+        private void CheckViewModelType(IViewModel viewModel)
+        {
+            IEnumerable<Type> interfaces = viewModel.GetType().GetInterfaces();
+
+            if (!interfaces.Any(i=>i == typeof(IDataEntryViewModel)))
+            {
+                throw new InvalidOperationException(WRONG_VIEWMODEL_TYPE_MESSAGE);
             }
         }
 
@@ -443,6 +463,31 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
             buttonDock.Children.Add(saveButton);
             buttonDock.Children.Add(cancelButton);
             root.Children.Add(buttonDock);
+        }
+
+        public void ShowSearchWindow(IViewModel viewModel)
+        {
+            Window window = new Window();
+            SearchPage page = new SearchPage();
+
+            IEnumerable<Searchable> attributes = 
+                ((ISearchViewModel)viewModel).GetColumns()
+                .OrderBy(o => o.DisplayOrder);
+
+            foreach (Searchable attribute in attributes)
+            {
+                BindingBase binding = new Binding(attribute.DisplayPath);
+
+                page.gvData.Columns.Add(new GridViewColumn()
+                {
+                    Header = attribute.Header,
+                    DisplayMemberBinding = binding
+                });
+            }
+
+            window.Content = page;
+
+            window.DataContext = viewModel;
         }
     }
 }

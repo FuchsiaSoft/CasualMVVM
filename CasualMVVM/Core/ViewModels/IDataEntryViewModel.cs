@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 
 namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
 {
-    interface IDataEntryViewModel : IViewModel, IValidatingViewModel
+    public interface IDataEntryViewModel : IViewModel, IValidatingViewModel
     {
         DataEntryMode Mode { get; set; }
 

@@ -53,7 +53,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
     /// Provides an attribute which facilitates dynamic window
     /// creation using the provided <see cref="WindowService"/>
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public sealed class Displayable : Attribute
     {
         /// <summary>

@@ -35,17 +35,6 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
             _DbContext.Set<T>().Attach(_Entity);
 
             Load();
-
-            //TODO: experimenting with new method, get
-            //rid of below before release
-            //using (Context db = Activator.CreateInstance<Context>())
-            //{
-            //    db.Set<T>().Attach(_Entity);
-
-            //    MarkAsModified(db, _Entity);
-
-            //    Load(db);
-            //}
         }
 
         private const string NOT_ENTITY_MESSAGE =
@@ -147,7 +136,6 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
 
             T database = _DbContext.Entry<T>(_Entity).GetDatabaseValues().ToObject() as T;
             T original = _DbContext.Entry<T>(_Entity).OriginalValues.ToObject() as T;
-            
 
             List<PropertyInfo> properties = typeof(T).GetProperties().ToList();
 
@@ -169,6 +157,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
             return conflicts;
         }
 
+
         protected override void SaveExisting(object parameter)
         {
             _DbContext.SaveChanges();
@@ -187,17 +176,6 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
             _DbContext.Set<T>().Add(_Entity);
 
             _DbContext.SaveChanges();
-
-            //TODO: get rid of this temporary code if new
-            //plan works out
-            //using (Context db = Activator.CreateInstance<Context>())
-            //{
-            //    AttachRelatedProperties(db);
-
-            //    db.Set(_Entity.GetType()).Add(_Entity);
-
-            //    db.SaveChanges();
-            //}
         }
 
 

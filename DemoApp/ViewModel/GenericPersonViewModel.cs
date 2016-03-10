@@ -107,9 +107,13 @@ namespace DemoApp.ViewModel
 
         private void AddNewHairColour(object obj)
         {
-            HairColourViewModel childVM = new HairColourViewModel(new HairColour());
-            childVM.SetExitAction(Initialise);
+            GenericHairColourViewModel childVM = new GenericHairColourViewModel(new HairColour(), DataEntryMode.New);
+            childVM.SetExitAction(Load);
             childVM.ShowWindow(WindowType.NewAutoWindowRequest);
+
+            //HairColourViewModel childVM = new HairColourViewModel(new HairColour());
+            //childVM.SetExitAction(Load);
+            //childVM.ShowWindow(WindowType.NewAutoWindowRequest);
         }
 
 

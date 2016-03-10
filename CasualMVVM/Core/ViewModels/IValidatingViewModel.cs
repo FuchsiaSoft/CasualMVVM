@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
 {
-    interface IValidatingViewModel : IViewModel
+    public interface IValidatingViewModel : IViewModel
     {
         string CurrentValidationConcern { get; }
 
