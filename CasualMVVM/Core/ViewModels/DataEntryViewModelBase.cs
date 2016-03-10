@@ -10,6 +10,8 @@ using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Core.Objects.DataClasses;
+using FuchsiaSoft.CasualMVVM.WindowMediation;
+using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
 
 namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
 {
@@ -64,6 +66,12 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
                 default:
                     break;
             }
+        }
+
+        public virtual void Search(IEnumerable<object> availableObjects, object selectedObject)
+        {
+            ISearchViewModel searchViewModel = new SearchViewModel(availableObjects, selectedObject);
+            searchViewModel.ShowWindow();
         }
 
         protected abstract void SaveNew(object parameter);

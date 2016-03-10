@@ -18,6 +18,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// </summary>
         protected Action<object> _ExitAction = null;
 
+
         /// <summary>
         /// Flag for whether the exit Action has already been invoked to
         /// prevent invoking it multiple times.
@@ -39,6 +40,28 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
                     _ActiveWindow.Closed += _ActiveWindow_Closed; 
                 }
             }
+        }
+
+        private bool _IsBusy;
+
+        public bool IsBusy
+        {
+            get { return _IsBusy; }
+            set
+            {
+                _IsBusy = value;
+                RaisePropertyChanged("IsBusy");
+            }
+        }
+
+        protected virtual void MarkBusy()
+        {
+            IsBusy = true;
+        }
+
+        protected virtual void MarkFree()
+        {
+            IsBusy = false;
         }
 
         /// <summary>

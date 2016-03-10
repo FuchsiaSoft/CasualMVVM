@@ -325,7 +325,11 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
                         break;
 
                     case DisplayType.Button:
-                        Button(displayAttribute, controlDock, binding);
+                        AddButton(displayAttribute, controlDock, binding);
+                        break;
+
+                    case DisplayType.SearchableField:
+                        AddSearchField(displayAttribute, controlDock, binding, property);
                         break;
                 }
 
@@ -339,7 +343,47 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
             }
         }
 
-        private static void Button(Displayable displayAttribute, DockPanel controlDock, Binding binding)
+        private static void AddSearchField(Displayable displayAttribute, DockPanel controlDock, Binding binding, PropertyInfo property)
+        {
+            string bindingPath = property.Name;
+
+            if (!String.IsNullOrEmpty(displayAttribute.GetDisplayMemberPath()))
+            {
+                bindingPath += displayAttribute.GetDisplayMemberPath();
+            }
+
+            binding.Path = new PropertyPath(bindingPath);
+
+            Button button = new Button()
+            {
+                Margin = new Thickness(5),
+                Padding = new Thickness(3),
+                Content = "Search",
+                HorizontalAlignment = HorizontalAlignment.Right
+            };
+
+            Binding searchCommandBinding = new Binding();
+            searchCommandBinding.Path = new PropertyPath(displayAttribute.SearchCommandPath);
+
+            BindingOperations.SetBinding(button, Button.CommandProperty, searchCommandBinding);
+
+            DockPanel.SetDock(button, Dock.Right);
+            controlDock.Children.Add(button);
+
+            TextBox textbox = new TextBox()
+            {
+                IsReadOnly = true,
+                Margin = new Thickness(5),
+                BorderThickness = new Thickness(0),
+                BorderBrush = Brushes.Transparent
+            };
+
+            binding.Mode = BindingMode.OneWay;
+
+            textbox.SetBinding(TextBox.TextProperty, binding);
+        }
+
+        private static void AddButton(Displayable displayAttribute, DockPanel controlDock, Binding binding)
         {
             Button button = new Button()
             {
@@ -465,29 +509,38 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
             root.Children.Add(buttonDock);
         }
 
-        public void ShowSearchWindow(IViewModel viewModel)
+        public void ShowSearchWindow(ISearchViewModel viewModel)
         {
             Window window = new Window();
             SearchPage page = new SearchPage();
 
             IEnumerable<Searchable> attributes = 
-                ((ISearchViewModel)viewModel).GetColumns()
+                viewModel.GetColumns()
                 .OrderBy(o => o.DisplayOrder);
 
             foreach (Searchable attribute in attributes)
             {
                 BindingBase binding = new Binding(attribute.DisplayPath);
 
-                page.gvData.Columns.Add(new GridViewColumn()
+                GridViewColumn column = new GridViewColumn()
                 {
                     Header = attribute.Header,
                     DisplayMemberBinding = binding
-                });
+                };
+
+                if (attribute.InitialWidth != null)
+                {
+                    column.Width = (int)attribute.InitialWidth;
+                }
+
+                page.gvData.Columns.Add(column);
             }
 
             window.Content = page;
-
             window.DataContext = viewModel;
+            viewModel.SetActiveWindow(window, true);
+
+            window.ShowDialog();
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
 {
-    internal interface ISearchViewModel : IViewModel
+    public interface ISearchViewModel : IViewModel
     {
         IEnumerable<Searchable> GetColumns();
     }

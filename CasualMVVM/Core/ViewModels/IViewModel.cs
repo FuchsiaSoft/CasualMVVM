@@ -95,5 +95,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         string WindowTitle { get; set; }
 
         void SetActiveWindow(Window window, bool invokeOnClose);
+
+        bool IsBusy { get; set; }
     }
 }

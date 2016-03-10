@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using FuchsiaSoft.CasualMVVM.Core.ViewModels;
 
 namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
 {
@@ -46,7 +47,13 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         /// <summary>
         /// A button that binds to a command
         /// </summary>
-        Button
+        Button,
+        /// <summary>
+        /// A read only textbox which has a search
+        /// button next to it for searching a large
+        /// set of objects
+        /// </summary>
+        SearchableField
     }
 
     /// <summary>
@@ -152,6 +159,16 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         /// with the property.
         /// </summary>
         public int DisplayOrder { get; set; }
+
+        //TODO: validate in WindowService to make sure that
+        //this property correctly maps to an ICommand
+
+        /// <summary>
+        /// The name of the <see cref="ICommand"/> in
+        /// the viewmodel that will handle calling
+        /// <see cref="DataEntryViewModelBase.Search(IEnumerable{object}, ref object)"/>
+        /// </summary>
+        public string SearchCommandPath { get; set; }
 
 
         /// <summary>

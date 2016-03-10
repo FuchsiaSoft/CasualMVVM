@@ -38,6 +38,11 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         /// </summary>
         public int DisplayOrder { get; set; }
 
+        /// <summary>
+        /// The initial width to initialise the column with in search view
+        /// </summary>
+        public int? InitialWidth { get; set; }
+
         private string _Header;
         /// <summary>
         /// Gets or sets a string which will be used as the column header

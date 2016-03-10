@@ -64,7 +64,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         /// <summary>
         /// Gets or sets the ViewModel that needs a search window requesting
         /// </summary>
-        public IViewModel ViewModel { get; set; }
+        public ISearchViewModel ViewModel { get; set; }
     }
 
     /// <summary>
@@ -116,7 +116,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         /// search window
         /// </summary>
         /// <param name="viewModel"></param>
-        internal static void RaiseSearchMessage(IViewModel viewModel)
+        internal static void RaiseSearchMessage(ISearchViewModel viewModel)
         {
             EventHandler handler = SearchWindowRequested;
 
@@ -127,7 +127,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
                     ViewModel = viewModel
                 };
 
-                handler(viewModel, null);
+                handler(viewModel, args);
             }
         }
     }

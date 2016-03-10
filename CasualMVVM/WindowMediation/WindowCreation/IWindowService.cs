@@ -23,6 +23,6 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
         /// Creates a search window
         /// </summary>
         /// <param name="viewModel"></param>
-        void ShowSearchWindow(IViewModel viewModel);
+        void ShowSearchWindow(ISearchViewModel viewModel);
     }
 }

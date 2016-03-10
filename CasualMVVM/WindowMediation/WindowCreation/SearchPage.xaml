@@ -6,15 +6,29 @@
              xmlns:local="clr-namespace:FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Page>
-        <DockPanel>
-            <ListView x:Name="lvMain">
-                <ListView.View>
-                    <GridView x:Name="gvData">
-                        <GridViewColumn Header="Test" DisplayMemberBinding="{Binding test}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
+    
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <Button DockPanel.Dock="Right" Margin="5" Padding="3" Content="Search"/>
+            <TextBox Margin="5" VerticalContentAlignment="Center" Text="{Binding FilterText}"/>
         </DockPanel>
-    </Page>
+        <ProgressBar Height="10" Margin="5" IsIndeterminate="True" 
+                         DockPanel.Dock="Top"
+                         Visibility="{Binding IsBusy, Converter={StaticResource BoolToVis}}"/>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Select" Command="{Binding SelectCommand}" Margin="5" Padding="3" Width="60"/>
+            <Button Content="Cancel" Command="{Binding CancelCommand}" Margin="5" Padding="3" Width="60"/>
+        </StackPanel>
+        <ListView x:Name="lvMain" Margin="5" 
+                      ItemsSource="{Binding AvailableObjects}"
+                      SelectedItem="{Binding SelectedObject}">
+            <ListView.View>
+                <GridView x:Name="gvData"/>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+    
 </UserControl>

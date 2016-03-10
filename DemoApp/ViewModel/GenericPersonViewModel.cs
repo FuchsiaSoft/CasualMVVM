@@ -10,6 +10,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace DemoApp.ViewModel
 {
@@ -30,6 +31,9 @@ namespace DemoApp.ViewModel
 
             SelectedHairColour = AvailableHairColours
                 .FirstOrDefault(h => h == _Entity.HairColour);
+
+            AvailablePeople = new ObservableCollection<Person>
+                (_DbContext.People);
         }
 
         [Required(ErrorMessage = "Must specify a first name")]
@@ -128,6 +132,38 @@ namespace DemoApp.ViewModel
             }
         }
 
+
+        private Person _RelatedPerson;
+        [Displayable("Related person:",DisplayType.SearchableField,6,displayMemberPath:"FirstName", SearchCommandPath ="SearchPersonCommand")]
+        public Person RelatedPerson
+        {
+            get { return _RelatedPerson; }
+            set
+            {
+                _RelatedPerson = value;
+                RaisePropertyChanged("RelatedPerson");
+            }
+        }
+
+        private ObservableCollection<Person> _AvailablePeople;
+
+        public ObservableCollection<Person> AvailablePeople
+        {
+            get { return _AvailablePeople; }
+            set
+            {
+                _AvailablePeople = value;
+                RaisePropertyChanged("AvailablePeople");
+            }
+        }
+
+
+        public ICommand SearchPersonCommand { get { return new SimpleCommand(SearchPerson); } }
+
+        private void SearchPerson()
+        {
+            Search(AvailablePeople, _RelatedPerson);
+        }
 
         [Displayable("Comments", DisplayType.LargeTextBox, 7, enabledBy: "CheckedPapers")]
         public string Comments
