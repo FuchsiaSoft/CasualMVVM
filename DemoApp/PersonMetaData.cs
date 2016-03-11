@@ -13,13 +13,13 @@ namespace DemoApp
 
     class PersonMetaData
     {
-        [Searchable]
+        [Searchable(Header ="First Name", DisplayPath = "FirstName")]
         public string FirstName { get; set; }
 
-        [Searchable]
+        [Searchable(Header ="Last Name", DisplayPath = "LastName")]
         public string LastName { get; set; }
 
-        [Searchable("Colour")]
+        [Searchable(Header = "Colour", DisplayPath ="HairColour.Colour")]
         public HairColour HairColour { get; set; }
     }
 }

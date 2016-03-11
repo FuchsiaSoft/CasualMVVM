@@ -12,7 +12,7 @@
     
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
-            <Button DockPanel.Dock="Right" Margin="5" Padding="3" Content="Search"/>
+            <Button DockPanel.Dock="Right" Margin="5" Padding="3" Content="Search" Command="{Binding SearchCommand}"/>
             <TextBox Margin="5" VerticalContentAlignment="Center" Text="{Binding FilterText}"/>
         </DockPanel>
         <ProgressBar Height="10" Margin="5" IsIndeterminate="True" 
@@ -23,7 +23,7 @@
             <Button Content="Cancel" Command="{Binding CancelCommand}" Margin="5" Padding="3" Width="60"/>
         </StackPanel>
         <ListView x:Name="lvMain" Margin="5" 
-                      ItemsSource="{Binding AvailableObjects}"
+                      ItemsSource="{Binding FilteredObjects}"
                       SelectedItem="{Binding SelectedObject}">
             <ListView.View>
                 <GridView x:Name="gvData"/>

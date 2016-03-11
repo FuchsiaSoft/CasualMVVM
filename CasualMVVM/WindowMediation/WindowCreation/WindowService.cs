@@ -511,7 +511,13 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
 
         public void ShowSearchWindow(ISearchViewModel viewModel)
         {
-            Window window = new Window();
+            Window window = new Window()
+            {
+                Width = 400,
+                Height = 500, 
+                ResizeMode = ResizeMode.CanResizeWithGrip 
+            };
+
             SearchPage page = new SearchPage();
 
             IEnumerable<Searchable> attributes = 

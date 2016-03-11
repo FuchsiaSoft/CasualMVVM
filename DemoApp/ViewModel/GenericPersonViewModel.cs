@@ -162,7 +162,7 @@ namespace DemoApp.ViewModel
 
         private void SearchPerson()
         {
-            Search(AvailablePeople, _RelatedPerson);
+            RelatedPerson = Search(AvailablePeople);
         }
 
         [Displayable("Comments", DisplayType.LargeTextBox, 7, enabledBy: "CheckedPapers")]

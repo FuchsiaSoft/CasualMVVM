@@ -68,10 +68,12 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
             }
         }
 
-        public virtual void Search(IEnumerable<object> availableObjects, object selectedObject)
+        public virtual T Search<T>(IEnumerable<T> availableObjects)
+            where T : class
         {
-            ISearchViewModel searchViewModel = new SearchViewModel(availableObjects, selectedObject);
+            SearchViewModel<T> searchViewModel = new SearchViewModel<T>(availableObjects);
             searchViewModel.ShowWindow();
+            return searchViewModel.Result;
         }
 
         protected abstract void SaveNew(object parameter);
