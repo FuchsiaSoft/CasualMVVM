@@ -22,6 +22,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,10 +34,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,16 +58,56 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Commands\DelegateCommand.cs" />
-    <Compile Include="Core\Commands\RelayCommand.cs" />
+    <Compile Include="Core\Commands\ConditionalCommand.cs" />
+    <Compile Include="Core\Commands\SimpleCommand.cs" />
+    <Compile Include="Core\Extensions.cs" />
     <Compile Include="Core\ObservableObject.cs" />
+    <Compile Include="Core\ViewModels\DataEntryViewModelBase%28T,Context%29.cs" />
+    <Compile Include="Core\ViewModels\DataEntryViewModelBase.cs" />
+    <Compile Include="Core\ViewModels\DateRange.cs" />
+    <Compile Include="Core\ViewModels\IDataEntryViewModel%28T,Context%29.cs" />
+    <Compile Include="Core\ViewModels\IDataEntryViewModel.cs" />
+    <Compile Include="Core\ViewModels\IValidatingViewModel.cs" />
     <Compile Include="Core\ViewModels\IViewModel.cs" />
+    <Compile Include="Core\ViewModels\PropertyChangeInfo.cs" />
     <Compile Include="Core\ViewModels\SimpleViewModelBase.cs" />
+    <Compile Include="Core\ViewModels\ValidatingViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WindowMediation\IWindowService.cs" />
+    <Compile Include="WindowMediation\WindowCreation\GeneralPurposeValidator.cs" />
+    <Compile Include="WindowMediation\WindowCreation\ISearchViewModel.cs" />
+    <Compile Include="WindowMediation\WindowCreation\IWindowService.cs" />
+    <Compile Include="WindowMediation\WindowCreation\Displayable.cs" />
+    <Compile Include="WindowMediation\WindowCreation\DisplayTypeException.cs" />
+    <Compile Include="WindowMediation\WindowCreation\IWindowSettings.cs" />
+    <Compile Include="WindowMediation\WindowCreation\Searchable.cs" />
+    <Compile Include="WindowMediation\WindowCreation\SearchPage.xaml.cs">
+      <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowMediation\WindowCreation\SearchViewModel.cs" />
+    <Compile Include="WindowMediation\WindowCreation\ValidationStatusBar.xaml.cs">
+      <DependentUpon>ValidationStatusBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowMediation\WindowCreation\WindowSettings.cs" />
     <Compile Include="WindowMediation\WindowListener.cs" />
     <Compile Include="WindowMediation\WindowMediator.cs" />
-    <Compile Include="WindowMediation\WindowService.cs" />
+    <Compile Include="WindowMediation\WindowCreation\WindowService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="WindowMediation\WindowCreation\SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowMediation\WindowCreation\ValidationStatusBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

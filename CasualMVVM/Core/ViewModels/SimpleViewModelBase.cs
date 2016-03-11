@@ -1,10 +1,6 @@
 ﻿using FuchsiaSoft.CasualMVVM.WindowMediation;
+using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
@@ -12,16 +8,16 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
     /// <summary>
     /// Provides a simple base ViewModel to derive from, implementing
     /// <see cref="IViewModel"/>, <see cref="INotifyPropertyChanged"/> 
-    /// and <see cref="IDisposable"/>.
     /// </summary>
     public abstract class SimpleViewModelBase : ObservableObject, IViewModel
     {
         /// <summary>
         /// The <see cref="Action"/> that will be executed when 
         /// <see cref="ExecuteExitAction"/>is called,
-        /// or the ViewModel is deconstructed or disposed.
+        /// or the ViewModel is deconstructed
         /// </summary>
         protected Action<object> _ExitAction = null;
+
 
         /// <summary>
         /// Flag for whether the exit Action has already been invoked to
@@ -29,10 +25,62 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// </summary>
         protected bool _HasActionInvoked = false;
 
+        private Window _ActiveWindow;
         /// <summary>
         /// For documentation refer to <see cref="IViewModel.ActiveWindow"/>
         /// </summary>
-        public Window ActiveWindow { get; set; }
+        public Window ActiveWindow
+        {
+            get { return _ActiveWindow; }
+            private set
+            {
+                _ActiveWindow = value;
+                if (InvokeOnWindowClose)
+                {
+                    _ActiveWindow.Closed += _ActiveWindow_Closed; 
+                }
+            }
+        }
+
+        private bool _IsBusy;
+
+        public bool IsBusy
+        {
+            get { return _IsBusy; }
+            set
+            {
+                _IsBusy = value;
+                RaisePropertyChanged("IsBusy");
+            }
+        }
+
+        protected virtual void MarkBusy()
+        {
+            IsBusy = true;
+        }
+
+        protected virtual void MarkFree()
+        {
+            IsBusy = false;
+        }
+
+        /// <summary>
+        /// For documentaiton refer to <see cref="IViewModel.InvokeOnWindowClose"/>
+        /// </summary>
+        public bool InvokeOnWindowClose { get; private set; }
+
+        protected virtual void _ActiveWindow_Closed(object sender, EventArgs e)
+        {
+            ExecuteExitAction();
+        }
+
+        /// <summary>
+        /// For documentation refer to <see cref="IViewModel.WindowTitle"/>
+        /// this property can be overridden in derived classes
+        /// to provide custom logic for determining window
+        /// title
+        /// </summary>
+        public virtual string WindowTitle { get; set; }
 
         /// <summary>
         /// For documentation refer to <see cref="IViewModel.CloseWindow"/>
@@ -73,9 +121,10 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// <param name="parameter"></param>
         public void ExecuteExitAction(object parameter)
         {
-            if (!_HasActionInvoked)
+            if (!_HasActionInvoked && _ExitAction != null)
             {
                 _ExitAction.Invoke(parameter);
+                _HasActionInvoked = true;
             }
         }
 
@@ -99,7 +148,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// <summary>
         /// For documentation refer to <see cref="IViewModel.ShowWindow"/>
         /// </summary>
-        public void ShowWindow()
+        public virtual void ShowWindow()
         {
             ShowWindow(WindowType.NewWindowRequest);
         }
@@ -108,23 +157,16 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// For documentation refer to <see cref="IViewModel.ShowWindow(WindowType)"/>
         /// </summary>
         /// <param name="type"></param>
-        public void ShowWindow(WindowType type)
+        public virtual void ShowWindow(WindowType type, IWindowSettings settings = null)
         {
-            WindowMediator.RaiseMessage(type, this);
+            WindowMediator.RaiseMessage(type, this, settings);
         }
 
-        /// <summary>
-        /// When the ViewModel is disposed the exit <see cref="Action"/> is invoked
-        /// (if it hasn't been invoked already once).  This method can be
-        /// overridden if needed in your own ViewModels for bespoke
-        /// behaviour or if your ViewModel needs to release
-        /// resources on disposal.
-        /// </summary>
-        public virtual void Dispose()
+        public void SetActiveWindow(Window window, bool invokeOnClose)
         {
-            ExecuteExitAction();
+            InvokeOnWindowClose = invokeOnClose;
+            ActiveWindow = window;
         }
-
         /// <summary>
         /// Deconstructor just invokes exit action if it hasn't already.
         /// </summary>

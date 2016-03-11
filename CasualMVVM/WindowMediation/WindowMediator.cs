@@ -1,4 +1,5 @@
 ﻿using FuchsiaSoft.CasualMVVM.Core.ViewModels;
+using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
 using System;
 
 namespace FuchsiaSoft.CasualMVVM.WindowMediation
@@ -15,7 +16,19 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         /// <summary>
         /// Request a new modal window for the viewmodel
         /// </summary>
-        NewModalWindowRequest
+        NewModalWindowRequest,
+        /// <summary>
+        /// Request a new Window that automatically generates controls
+        /// based on the <see cref="Displayable"/> attributes found
+        /// decorating properties
+        /// </summary>
+        NewAutoWindowRequest,
+        /// <summary>
+        /// Request a new modal Window that automatically generates controls
+        /// based on the <see cref="Displayable"/> attributes found
+        /// decorating properties.
+        /// </summary>
+        NewModalAutoWindowRequest
     }
 
     /// <summary>
@@ -28,11 +41,30 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         /// Gets or sets the <see cref="WindowType"/>
         /// </summary>
         public WindowType WindowType { get; set; }
+
         /// <summary>
         /// Gets or sets the ViewModel that needs a window requesting for it
         /// </summary>
         public IViewModel ViewModel { get; set; }
 
+        /// <summary>
+        /// Gets or sets the <see cref="IWindowSettings"/> for the window
+        /// that needs creating.
+        /// </summary>
+        public IWindowSettings Settings { get; set; }
+
+    }
+
+    /// <summary>
+    /// Derived from EventArgs to be passed through when Mediator raises
+    /// a SearchWindow request
+    /// </summary>
+    internal class SearchWindowEventArgs : EventArgs
+    {
+        /// <summary>
+        /// Gets or sets the ViewModel that needs a search window requesting
+        /// </summary>
+        public ISearchViewModel ViewModel { get; set; }
     }
 
     /// <summary>
@@ -52,11 +84,17 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         internal static event EventHandler WindowRequested;
 
         /// <summary>
+        /// The event that is raised when the <see cref="SearchViewModel{T}"/> wants a new search window
+        /// this is only used by that one use case.
+        /// </summary>
+        internal static event EventHandler SearchWindowRequested;
+
+        /// <summary>
         /// Raises the event (<see cref="WindowRequested"/>) requesting a new window be opened for the viewmodel.
         /// </summary>
         /// <param name="type">The type of request to raise</param>
         /// <param name="newViewModel">The viewmodel that needs a window opening for it</param>
-        internal static void RaiseMessage(WindowType type, IViewModel viewModel)
+        internal static void RaiseMessage(WindowType type, IViewModel viewModel, IWindowSettings settings)
         {
             EventHandler handler = WindowRequested;
 
@@ -65,6 +103,27 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
                 WindowMediatorEventArgs args = new WindowMediatorEventArgs()
                 {
                     WindowType = type,
+                    ViewModel = viewModel,
+                    Settings = settings
+                };
+
+                handler(viewModel, args);
+            }
+        }
+
+        /// <summary>
+        /// Raises the <see cref="SearchWindowRequested"/> event requesting a new
+        /// search window
+        /// </summary>
+        /// <param name="viewModel"></param>
+        internal static void RaiseSearchMessage(ISearchViewModel viewModel)
+        {
+            EventHandler handler = SearchWindowRequested;
+
+            if (handler != null)
+            {
+                SearchWindowEventArgs args = new SearchWindowEventArgs()
+                {
                     ViewModel = viewModel
                 };
 

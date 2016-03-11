@@ -9,6 +9,6 @@
       Title="ChildPage">
 
     <Grid>
-        <TextBlock Text="{Binding MyProperty}"/>
+        
     </Grid>
 </Page>
