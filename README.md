@@ -9,3 +9,6 @@ typical data driven, SQL backend, client/server type application.
 
 In particular it has support for easily opening new windows from the ViewModel layer, without breaching
 MVVM or compromising unit testability.
+
+###Overview of how Casual MVVM works with window mediation:
+![](img/C_MVVM_Diagram.png)
