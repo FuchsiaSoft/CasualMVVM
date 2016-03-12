@@ -25,6 +25,8 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
             {
                 AvailableObjects = new ObservableCollection<T>(objects);
             }
+
+            FilteredObjects = new ObservableCollection<T>(AvailableObjects);
         }
 
         private T _SelectedObject;
@@ -194,39 +196,39 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
 
         private async void Search()
         {
-            MarkBusy();
+            //MarkBusy();
 
-            await Task.Run(() =>
-            {
-                //TODO: not quite sure how to achieve what
-                //i'm after here with LINQ, so long handed
-                //method for now!
+            //await Task.Run(() =>
+            //{
+            //    //TODO: not quite sure how to achieve what
+            //    //i'm after here with LINQ, so long handed
+            //    //method for now!
 
-                foreach (T item in AvailableObjects)
-                {
-                    if (FilterText == null)
-                    {
-                        FilteredObjects = new ObservableCollection<T>
-                            (AvailableObjects);
-                        return;
-                    }
+            //    foreach (T item in AvailableObjects)
+            //    {
+            //        if (FilterText == null)
+            //        {
+            //            FilteredObjects = new ObservableCollection<T>
+            //                (AvailableObjects);
+            //            return;
+            //        }
 
-                    foreach (PropertyInfo property in typeof(T).GetProperties())
-                    {
-                        if (property.GetValue(item) == null) break;
+            //        foreach (PropertyInfo property in typeof(T).GetProperties())
+            //        {
+            //            if (property.GetValue(item) == null) break;
 
-                        if (property.GetValue(item)
-                            .ToString().ToUpper()
-                            .Contains(FilterText))
-                        {
-                            FilteredObjects.Add(item);
-                            break;
-                        }
-                    }
-                }
-            });
+            //            if (property.GetValue(item)
+            //                .ToString().ToUpper()
+            //                .Contains(FilterText))
+            //            {
+            //                FilteredObjects.Add(item);
+            //                break;
+            //            }
+            //        }
+            //    }
+            //});
 
-            MarkFree();
+            //MarkFree();
         }
     }
 }
