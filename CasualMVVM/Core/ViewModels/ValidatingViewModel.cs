@@ -9,12 +9,18 @@ using System.Threading.Tasks;
 
 namespace Vaper.Core.ViewModels
 {
+    /// <summary>
+    /// Provides a base implementation of <see cref="IValidatingViewModel"/>, this class
+    /// also derives from <see cref="SimpleViewModelBase/>
+    /// </summary>
     public abstract class ValidatingViewModelBase : SimpleViewModelBase, IValidatingViewModel
     {
         protected ValidationContext _Context;
 
         private int _ValidationConcernCount;
-
+        /// <summary>
+        /// For documentation refer to <see cref="IValidatingViewModel.ValidationConcernCount"/>
+        /// </summary>
         public int ValidationConcernCount
         {
             get { return _ValidationConcernCount; }
@@ -26,7 +32,9 @@ namespace Vaper.Core.ViewModels
         }
 
         private ObservableCollection<ValidationResult> _LastValidationState;
-
+        /// <summary>
+        /// For documentation refer to <see cref="IValidatingViewModel.LastValidationState"/>
+        /// </summary>
         public ObservableCollection<ValidationResult> LastValidationState
         {
             get { return _LastValidationState; }
@@ -39,7 +47,9 @@ namespace Vaper.Core.ViewModels
 
 
         private string _CurrentValidationConcern;
-
+        /// <summary>
+        /// For documentation refer to <see cref="IValidatingViewModel.CurrentValidationConcern"/>
+        /// </summary>
         public string CurrentValidationConcern
         {
             get { return _CurrentValidationConcern; }
@@ -51,7 +61,9 @@ namespace Vaper.Core.ViewModels
         }
 
         private bool _IsValidated;
-
+        /// <summary>
+        /// For documentation refer to <see cref="IValidatingViewModel.IsValidated"/>
+        /// </summary>
         public bool IsValidated
         {
             get { return _IsValidated; }
@@ -63,7 +75,9 @@ namespace Vaper.Core.ViewModels
         }
 
         private bool _HasValidationConcern;
-
+        /// <summary>
+        /// For documentation refer to <see cref="IValidatingViewModel.HasValidationConcern"/>
+        /// </summary>
         public bool HasValidationConcern
         {
             get { return _HasValidationConcern; }
@@ -74,6 +88,11 @@ namespace Vaper.Core.ViewModels
             }
         }
 
+        /// <summary>
+        /// For documentation refer to <see cref="IValidatingViewModel.Validate(ICollection{ValidationResult})"/>
+        /// </summary>
+        /// <param name="validationResults"></param>
+        /// <returns></returns>
         public virtual bool Validate(ICollection<ValidationResult> validationResults)
         {
             if (_Context == null) _Context = new ValidationContext(this);

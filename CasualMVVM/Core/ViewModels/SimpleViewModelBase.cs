@@ -7,7 +7,7 @@ namespace Vaper.Core.ViewModels
 {
     /// <summary>
     /// Provides a simple base ViewModel to derive from, implementing
-    /// <see cref="IViewModel"/>, <see cref="INotifyPropertyChanged"/> 
+    /// <see cref="IViewModel"/> & <see cref="INotifyPropertyChanged"/> 
     /// </summary>
     public abstract class SimpleViewModelBase : ObservableObject, IViewModel
     {
@@ -17,7 +17,6 @@ namespace Vaper.Core.ViewModels
         /// or the ViewModel is deconstructed
         /// </summary>
         protected Action<object> _ExitAction = null;
-
 
         /// <summary>
         /// Flag for whether the exit Action has already been invoked to
@@ -43,7 +42,9 @@ namespace Vaper.Core.ViewModels
         }
 
         private bool _IsBusy;
-
+        /// <summary>
+        /// For documentation refer to <see cref="IViewModel.IsBusy"/>
+        /// </summary>
         public bool IsBusy
         {
             get { return _IsBusy; }
@@ -54,11 +55,17 @@ namespace Vaper.Core.ViewModels
             }
         }
 
+        /// <summary>
+        /// Sets the <see cref="IsBusy"/> property to true
+        /// </summary>
         protected virtual void MarkBusy()
         {
             IsBusy = true;
         }
 
+        /// <summary>
+        /// Sets the <see cref="IsBusy"/> property to false
+        /// </summary>
         protected virtual void MarkFree()
         {
             IsBusy = false;
@@ -69,6 +76,12 @@ namespace Vaper.Core.ViewModels
         /// </summary>
         public bool InvokeOnWindowClose { get; private set; }
 
+        /// <summary>
+        /// Handles the Window closed event if an active window is set and
+        /// <see cref="InvokeOnWindowClose"/> was set to true
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected virtual void _ActiveWindow_Closed(object sender, EventArgs e)
         {
             ExecuteExitAction();
@@ -162,11 +175,17 @@ namespace Vaper.Core.ViewModels
             WindowMediator.RaiseMessage(type, this, settings);
         }
 
+        /// <summary>
+        /// For documentation refer to <see cref="IViewModel.SetActiveWindow(Window, bool)"/>
+        /// </summary>
+        /// <param name="window"></param>
+        /// <param name="invokeOnClose"></param>
         public void SetActiveWindow(Window window, bool invokeOnClose)
         {
             InvokeOnWindowClose = invokeOnClose;
             ActiveWindow = window;
         }
+
         /// <summary>
         /// Deconstructor just invokes exit action if it hasn't already.
         /// </summary>

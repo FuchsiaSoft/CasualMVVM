@@ -109,7 +109,7 @@ namespace Vaper.Core.ViewModels
         /// <summary>
         /// A <see cref="bool"/> which will raise the property changed event when
         /// set.  This is here as a convenience for binding to Views to indicate when
-        /// a ViewModel is busy doing something asynchronously.
+        /// a ViewModel is busy doing something asynchronously. 
         /// </summary>
         bool IsBusy { get; set; }
     }

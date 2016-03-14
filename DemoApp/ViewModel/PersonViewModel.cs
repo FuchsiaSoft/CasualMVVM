@@ -140,12 +140,12 @@ namespace DemoApp.ViewModel
 
 
 
-        protected override void SaveExisting(object parameter)
+        protected override bool SaveExisting(object parameter)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SaveNew(object parameter)
+        protected override bool SaveNew(object parameter)
         {
             using (DemoModelContainer db = new DemoModelContainer())
             {
@@ -157,6 +157,8 @@ namespace DemoApp.ViewModel
                 db.People.Add(_Person);
                 db.SaveChanges();
             }
+
+            return true;
         }
 
     }

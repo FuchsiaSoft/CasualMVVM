@@ -64,7 +64,6 @@
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\ViewModels\DataEntryViewModelBase%28T,Context%29.cs" />
     <Compile Include="Core\ViewModels\DataEntryViewModelBase.cs" />
-    <Compile Include="Core\ViewModels\DateRange.cs" />
     <Compile Include="Core\ViewModels\IDataEntryViewModel%28T,Context%29.cs" />
     <Compile Include="Core\ViewModels\IDataEntryViewModel.cs" />
     <Compile Include="Core\ViewModels\IValidatingViewModel.cs" />

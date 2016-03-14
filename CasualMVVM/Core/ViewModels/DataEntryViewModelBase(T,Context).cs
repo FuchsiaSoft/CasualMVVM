@@ -158,9 +158,10 @@ namespace Vaper.Core.ViewModels
         }
 
 
-        protected override void SaveExisting(object parameter)
+        protected override bool SaveExisting(object parameter)
         {
             _DbContext.SaveChanges();
+            return true;
         }
 
         /// <summary>
@@ -169,13 +170,15 @@ namespace Vaper.Core.ViewModels
         /// already exist in the database, and create them if not.
         /// </summary>
         /// <param name="parameter"></param>
-        protected override void SaveNew(object parameter)
+        protected override bool SaveNew(object parameter)
         {
             AttachRelatedProperties(_DbContext);
 
             _DbContext.Set<T>().Add(_Entity);
 
             _DbContext.SaveChanges();
+
+            return true;
         }
 
 
