@@ -196,39 +196,67 @@ namespace Vaper.WindowMediation.WindowCreation
 
         private async void Search()
         {
-            //MarkBusy();
+            MarkBusy();
 
-            //await Task.Run(() =>
-            //{
-            //    //TODO: not quite sure how to achieve what
-            //    //i'm after here with LINQ, so long handed
-            //    //method for now!
+            await Task.Run(() =>
+            {
+                foreach (T item in AvailableObjects)
+                {
+                    if (FilterText == null)
+                    {
+                        FilteredObjects = new ObservableCollection<T>
+                            (AvailableObjects);
+                        return;
+                    }
 
-            //    foreach (T item in AvailableObjects)
-            //    {
-            //        if (FilterText == null)
-            //        {
-            //            FilteredObjects = new ObservableCollection<T>
-            //                (AvailableObjects);
-            //            return;
-            //        }
+                    foreach (PropertyInfo property in typeof(T).GetProperties())
+                    {
+                        if (property.GetValue(item) == null) break;
 
-            //        foreach (PropertyInfo property in typeof(T).GetProperties())
-            //        {
-            //            if (property.GetValue(item) == null) break;
+                        //only check properties that have the Searchable attribute
+                        if (HasSearchableAttribute(property))
+                        {
+                            if (property.GetValue(item)
+                            .ToString().ToUpper()
+                            .Contains(FilterText))
+                            {
+                                ActiveWindow.Dispatcher.Invoke
+                                    (() => FilteredObjects.Add(item));
+                                break;
+                            }
+                        }                       
+                    }
+                }
+            });
 
-            //            if (property.GetValue(item)
-            //                .ToString().ToUpper()
-            //                .Contains(FilterText))
-            //            {
-            //                FilteredObjects.Add(item);
-            //                break;
-            //            }
-            //        }
-            //    }
-            //});
+            MarkFree();
+        }
 
-            //MarkFree();
+        private bool HasSearchableAttribute(PropertyInfo property)
+        {
+            if (property.GetCustomAttribute<Searchable>(true) != null)
+            {
+                return true;
+            }
+
+            //also check for metadata attributes defined in a separate class
+            IEnumerable<MetadataTypeAttribute> metaAttributes =
+                typeof(T).GetCustomAttributes<MetadataTypeAttribute>(true);
+
+            foreach (MetadataTypeAttribute meta in metaAttributes)
+            {
+                Type type = meta.MetadataClassType;
+
+                foreach (PropertyInfo metaProperty in type.GetProperties())
+                {
+                    if (metaProperty.GetCustomAttribute<Searchable>(true) != null)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }

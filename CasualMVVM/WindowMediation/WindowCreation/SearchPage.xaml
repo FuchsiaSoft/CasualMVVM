@@ -12,7 +12,7 @@
     
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
-            <Button DockPanel.Dock="Right" Margin="5" Padding="3" Content="Search" Command="{Binding SearchCommand}" Click="Button_Click"/>
+            <Button DockPanel.Dock="Right" Margin="5" Padding="3" Content="Search" Command="{Binding SearchCommand}"/>
             <TextBox Margin="5" VerticalContentAlignment="Center" Text="{Binding FilterText}" x:Name="txtFilter"/>
         </DockPanel>
         <ProgressBar Height="10" Margin="5" IsIndeterminate="True" 

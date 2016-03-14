@@ -12,22 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Reflection;
-using System.Data;
 
-namespace Vaper.WindowMediation.WindowCreation
+namespace DemoApplication
 {
     /// <summary>
-    /// Interaction logic for SearchPage.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class SearchPage : UserControl
+    public partial class MainWindow : Window
     {
-        public SearchPage()
+        public MainWindow()
         {
             InitializeComponent();
         }
-
-
-        
     }
 }

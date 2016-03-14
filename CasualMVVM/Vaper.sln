@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vaper", "Vaper.csproj", "{DEDD22FA-ED73-4622-A8CA-D98B53DC9DAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp", "..\DemoApp\DemoApp.csproj", "{D58E759C-6C41-4029-889F-18A3AE6B535E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApplication", "..\DemoApplication\DemoApplication.csproj", "{040A4936-A603-4E2A-9A53-956EBCDA98CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{DEDD22FA-ED73-4622-A8CA-D98B53DC9DAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEDD22FA-ED73-4622-A8CA-D98B53DC9DAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEDD22FA-ED73-4622-A8CA-D98B53DC9DAB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D58E759C-6C41-4029-889F-18A3AE6B535E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D58E759C-6C41-4029-889F-18A3AE6B535E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D58E759C-6C41-4029-889F-18A3AE6B535E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D58E759C-6C41-4029-889F-18A3AE6B535E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{040A4936-A603-4E2A-9A53-956EBCDA98CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{040A4936-A603-4E2A-9A53-956EBCDA98CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{040A4936-A603-4E2A-9A53-956EBCDA98CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{040A4936-A603-4E2A-9A53-956EBCDA98CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
