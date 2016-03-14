@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using FuchsiaSoft.CasualMVVM.Core.Commands;
+using Vaper.Core.Commands;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Collections.ObjectModel;
@@ -10,10 +10,10 @@ using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Core.Objects.DataClasses;
-using FuchsiaSoft.CasualMVVM.WindowMediation;
-using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
+using Vaper.WindowMediation;
+using Vaper.WindowMediation.WindowCreation;
 
-namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
+namespace Vaper.Core.ViewModels
 {
     /// <summary>
     /// Used to indicate to a <see cref="DataEntryViewModelBase"/>
@@ -37,7 +37,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
     {
         public DataEntryMode Mode { get; set; } = DataEntryMode.New;
 
-        public ConditionalCommand SaveCommand { get { return new ConditionalCommand(Save, CanSave); } }
+        public RelayCommand SaveCommand { get { return new RelayCommand(Save, CanSave); } }
 
         public virtual bool CanSave(object parameter)
         {

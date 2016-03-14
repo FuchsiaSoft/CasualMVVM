@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
+namespace Vaper.WindowMediation.WindowCreation
 {
     public class GeneralPurposeValidator : ValidationRule
     {

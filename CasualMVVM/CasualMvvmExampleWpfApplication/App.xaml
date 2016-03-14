@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:CasualMvvmExampleWpfApplication"
              xmlns:view="clr-namespace:CasualMvvmExampleWpfApplication" 
-             xmlns:pages="clr-namespace:FuchsiaSoft.CasualMvvmExampleWpfApplication.Pages"
-             xmlns:viewmodel="clr-namespace:FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels"
+             xmlns:pages="clr-namespace:VaperExampleWpfApplication.Pages"
+             xmlns:viewmodel="clr-namespace:VaperExampleWpfApplication.ViewModels"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

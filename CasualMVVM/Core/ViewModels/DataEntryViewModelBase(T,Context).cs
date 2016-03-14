@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
+namespace Vaper.Core.ViewModels
 {
     public abstract class DataEntryViewModelBase<T, Context> : 
         DataEntryViewModelBase, IDataEntryViewModel<T, Context>

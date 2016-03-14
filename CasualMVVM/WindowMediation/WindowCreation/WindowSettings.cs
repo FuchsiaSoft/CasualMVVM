@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using FuchsiaSoft.CasualMVVM.Core.ViewModels;
+using Vaper.Core.ViewModels;
 
-namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
+namespace Vaper.WindowMediation.WindowCreation
 {
     public class WindowSettings : IWindowSettings
     {

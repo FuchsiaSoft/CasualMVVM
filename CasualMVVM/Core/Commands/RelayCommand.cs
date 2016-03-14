@@ -5,22 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace FuchsiaSoft.CasualMVVM.Core.Commands
+namespace Vaper.Core.Commands
 {
     /// <summary>
-    /// ConditionalCommand provides a comprehensive implementation of the <see cref="ICommand"/>
+    /// RelayCommand provides an implementation of the <see cref="ICommand"/>
     /// interface and is designed for operations where the ability to execute
     /// the action is variable and determined by the application state.
     /// </summary>
-    public class ConditionalCommand : ICommand
+    public class RelayCommand : ICommand
     {
         /// <summary>
         /// The message that will be returned in an ArgumentNullException if the
         /// action provided on construction is null.
         /// </summary>
         private const string NULL_ACTION_MESSAGE =
-            "The action supplied to ConditionalCommand constructor cannot be null. " +
-            "Review your code and make sure that the ConditionalCommand is being " +
+            "The action supplied to RelayCommand constructor cannot be null. " +
+            "Review your code and make sure that the RelayCommand is being " +
             "constructed with a valid Action";
 
         /// <summary>
@@ -29,10 +29,10 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         /// overload requiring a predicate was the one called)
         /// </summary>
         private const string NULL_PREDICATE_MESSAGE =
-            "The predicate supplied to ConditionalCommand constructor cannot be null. " +
-            "Review your code and make sure that the ConditionalCommand is being " +
+            "The predicate supplied to RelayCommand constructor cannot be null. " +
+            "Review your code and make sure that the RelayCommand is being " +
             "constructed with a valid Predicate.  If you are seeking to " +
-            "have a ConditionalCommand that will always be executable, either " +
+            "have a RelayCommand that will always be executable, either " +
             "use the constructor overload that does not require a Predicate " + 
             "parameter, or look at SimpleCommand";
 
@@ -48,7 +48,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         private Predicate<object> _Predicate;
 
         /// <summary>
-        /// Initialises a <see cref="ConditionalCommand"/> (<see cref="ICommand"/> implementation) for which the
+        /// Initialises a <see cref="RelayCommand"/> (<see cref="ICommand"/> implementation) for which the
         /// <see cref="Execute(object)"/> <see cref="Action"/>'s ability to 
         /// execute is dependent on the supplied <see cref="Predicate{T}"/>.
         /// The supplied <see cref="Predicate{T}"/> should determine from the application state whether
@@ -61,7 +61,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         /// <exception cref="ArgumentNullException">ArgumentNullException is thrown
         /// if either parameters for this constructor are null.  If no predicate is required
         /// then use the other constructor overload or look at <see cref="SimpleCommand"/></exception>
-        public ConditionalCommand(Action<object> action, Predicate<object> predicate)
+        public RelayCommand(Action<object> action, Predicate<object> predicate)
         {
             CheckAction(action);
             CheckPredicate(predicate);
@@ -71,7 +71,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         }
 
         /// <summary>
-        /// Initialises a <see cref="ConditionalCommand"/> (<see cref="ICommand"/> 
+        /// Initialises a <see cref="RelayCommand"/> (<see cref="ICommand"/> 
         /// implementation) for which the <see cref="Execute(object)"/>
         /// <see cref="Action"/>'s ability to execute is not dependent on the application state.  If
         /// this constructor is used then an internal <see cref="Predicate{T}"/> will be used for evaluation
@@ -81,7 +81,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         /// execution.</param>
         /// <exception cref="ArgumentNullException">ArgumentNullException is thrown
         /// if the supplied Action is null.</exception>
-        public ConditionalCommand(Action<object> action)
+        public RelayCommand(Action<object> action)
         {
             CheckAction(action);
 

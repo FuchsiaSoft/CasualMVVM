@@ -1,5 +1,5 @@
-﻿using FuchsiaSoft.CasualMVVM.Core;
-using FuchsiaSoft.CasualMVVM.Core.ViewModels;
+﻿using Vaper.Core;
+using Vaper.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
-using FuchsiaSoft.CasualMVVM.Core.Commands;
+using Vaper.Core.Commands;
 using System.ComponentModel.DataAnnotations;
 
-namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
+namespace Vaper.WindowMediation.WindowCreation
 {
     internal class SearchViewModel<T> : SimpleViewModelBase, ISearchViewModel
         where T : class
@@ -148,7 +148,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
 
         public T Result { get; set; }
 
-        public ConditionalCommand SelectCommand { get { return new ConditionalCommand(Select, CanSelect); } }
+        public RelayCommand SelectCommand { get { return new RelayCommand(Select, CanSelect); } }
 
         private bool CanSelect(object obj)
         {
@@ -166,7 +166,7 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
             Result = SelectedObject;
         }
 
-        public ConditionalCommand CancelCommand { get { return new ConditionalCommand(Cancel, CanCancel); } }
+        public RelayCommand CancelCommand { get { return new RelayCommand(Cancel, CanCancel); } }
 
         private bool CanCancel(object obj)
         {

@@ -1,5 +1,5 @@
-﻿using FuchsiaSoft.CasualMVVM.Core.ViewModels;
-using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
+﻿using Vaper.Core.ViewModels;
+using Vaper.WindowMediation.WindowCreation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
+namespace VaperExampleWpfApplication.ViewModels
 {
     class HairViewModel : DataEntryViewModelBase
     {

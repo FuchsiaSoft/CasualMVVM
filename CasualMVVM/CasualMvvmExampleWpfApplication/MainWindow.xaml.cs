@@ -1,4 +1,4 @@
-﻿using FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels;
+﻿using VaperExampleWpfApplication.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace FuchsiaSoft.CasualMVVM.Core
+namespace Vaper.Core
 {
     /// <summary>
     /// Provides an abstract base implementation of <see cref="INotifyPropertyChanged"/>,

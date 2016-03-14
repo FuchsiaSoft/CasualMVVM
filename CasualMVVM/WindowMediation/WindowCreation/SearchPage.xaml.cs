@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using System.Reflection;
 using System.Data;
 
-namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
+namespace Vaper.WindowMediation.WindowCreation
 {
     /// <summary>
     /// Interaction logic for SearchPage.xaml

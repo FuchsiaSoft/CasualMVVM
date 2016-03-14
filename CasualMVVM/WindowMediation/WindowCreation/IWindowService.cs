@@ -1,6 +1,6 @@
-﻿using FuchsiaSoft.CasualMVVM.Core.ViewModels;
+﻿using Vaper.Core.ViewModels;
 
-namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
+namespace Vaper.WindowMediation.WindowCreation
 {
     /// <summary>
     /// Provides the interface for opening new Windows

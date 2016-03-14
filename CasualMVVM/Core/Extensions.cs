@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FuchsiaSoft.CasualMVVM.Core
+namespace Vaper.Core
 {
     internal static class Extensions
     {

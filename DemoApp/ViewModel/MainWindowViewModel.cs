@@ -1,6 +1,6 @@
-﻿using FuchsiaSoft.CasualMVVM.Core.Commands;
-using FuchsiaSoft.CasualMVVM.Core.ViewModels;
-using FuchsiaSoft.CasualMVVM.WindowMediation;
+﻿using Vaper.Core.Commands;
+using Vaper.Core.ViewModels;
+using Vaper.WindowMediation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -42,7 +42,7 @@ namespace DemoApp.ViewModel
             }
         }
 
-        public ConditionalCommand NewPersonCommand { get { return new ConditionalCommand(NewPerson, CanNewPerson); } }
+        public RelayCommand NewPersonCommand { get { return new RelayCommand(NewPerson, CanNewPerson); } }
 
         private bool CanNewPerson(object obj)
         {
@@ -58,7 +58,7 @@ namespace DemoApp.ViewModel
         }
 
 
-        public ConditionalCommand EditPersonCommand { get { return new ConditionalCommand(EditPerson, CanEditPerson); } }
+        public RelayCommand EditPersonCommand { get { return new RelayCommand(EditPerson, CanEditPerson); } }
 
         private bool CanEditPerson(object obj)
         {

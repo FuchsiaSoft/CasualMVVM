@@ -1,5 +1,5 @@
-﻿using FuchsiaSoft.CasualMVVM.Core.ViewModels;
-using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
+﻿using Vaper.Core.ViewModels;
+using Vaper.WindowMediation.WindowCreation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

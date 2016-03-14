@@ -1,8 +1,8 @@
-﻿using FuchsiaSoft.CasualMVVM.Core.ViewModels;
-using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
+﻿using Vaper.Core.ViewModels;
+using Vaper.WindowMediation.WindowCreation;
 using System;
 
-namespace FuchsiaSoft.CasualMVVM.WindowMediation
+namespace Vaper.WindowMediation
 {
     /// <summary>
     /// Possible Window types that can be sent by the mediator

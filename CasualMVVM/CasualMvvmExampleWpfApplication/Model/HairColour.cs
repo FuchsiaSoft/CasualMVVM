@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.Model
+namespace VaperExampleWpfApplication.Model
 {
     class HairColour
     {

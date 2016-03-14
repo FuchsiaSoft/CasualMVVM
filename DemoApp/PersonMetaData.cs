@@ -1,4 +1,4 @@
-﻿using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
+﻿using Vaper.WindowMediation.WindowCreation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

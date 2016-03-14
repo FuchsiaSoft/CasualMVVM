@@ -1,7 +1,7 @@
-﻿using FuchsiaSoft.CasualMVVM.Core.Commands;
-using FuchsiaSoft.CasualMVVM.Core.ViewModels;
-using FuchsiaSoft.CasualMVVM.WindowMediation;
-using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
+﻿using Vaper.Core.Commands;
+using Vaper.Core.ViewModels;
+using Vaper.WindowMediation;
+using Vaper.WindowMediation.WindowCreation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -98,7 +98,7 @@ namespace DemoApp.ViewModel
 
 
         [Displayable("New hair colour", DisplayType.Button, 4)]
-        public ConditionalCommand AddNewHairColourCommand { get { return new ConditionalCommand(AddNewHairColour, CanAddNewHairColour); } }
+        public RelayCommand AddNewHairColourCommand { get { return new RelayCommand(AddNewHairColour, CanAddNewHairColour); } }
 
         private bool CanAddNewHairColour(object obj)
         {

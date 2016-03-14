@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
+namespace Vaper.Core.ViewModels
 {
     /// <summary>
     /// Container for detailing changes to an entity's

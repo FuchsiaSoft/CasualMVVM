@@ -109,9 +109,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FuchsiaSoft.CasualMVVM.csproj">
+    <ProjectReference Include="..\Vaper.csproj">
       <Project>{dedd22fa-ed73-4622-a8ca-d98b53dc9dab}</Project>
-      <Name>FuchsiaSoft.CasualMVVM</Name>
+      <Name>Vaper</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

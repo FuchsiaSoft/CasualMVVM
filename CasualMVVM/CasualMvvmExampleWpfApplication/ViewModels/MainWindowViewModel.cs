@@ -1,5 +1,5 @@
-﻿using FuchsiaSoft.CasualMVVM.Core.Commands;
-using FuchsiaSoft.CasualMVVM.Core.ViewModels;
+﻿using Vaper.Core.Commands;
+using Vaper.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
+namespace VaperExampleWpfApplication.ViewModels
 {
     class MainWindowViewModel : SimpleViewModelBase
     {
@@ -24,7 +24,7 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
         }
 
 
-        public ConditionalCommand NewWindowCommand { get { return new ConditionalCommand(NewWindow, CanNewWindow); } }
+        public RelayCommand NewWindowCommand { get { return new RelayCommand(NewWindow, CanNewWindow); } }
 
         private bool CanNewWindow(object obj)
         {

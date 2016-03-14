@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
+namespace Vaper.Core.ViewModels
 {
     interface IDataEntryViewModel<T, Context> : IDataEntryViewModel
         where T : class

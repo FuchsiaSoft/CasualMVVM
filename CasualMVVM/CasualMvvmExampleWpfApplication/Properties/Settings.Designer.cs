@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.Properties {
+namespace VaperExampleWpfApplication.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

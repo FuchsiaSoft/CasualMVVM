@@ -1,9 +1,9 @@
-﻿using FuchsiaSoft.CasualMVVM.WindowMediation;
-using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
+﻿using Vaper.WindowMediation;
+using Vaper.WindowMediation.WindowCreation;
 using System;
 using System.Windows;
 
-namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
+namespace Vaper.Core.ViewModels
 {
     /// <summary>
     /// Provides a simple base ViewModel to derive from, implementing

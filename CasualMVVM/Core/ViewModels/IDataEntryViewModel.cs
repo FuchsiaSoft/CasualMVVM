@@ -1,4 +1,4 @@
-﻿using FuchsiaSoft.CasualMVVM.Core.Commands;
+﻿using Vaper.Core.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.ObjectModel;
 
-namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
+namespace Vaper.Core.ViewModels
 {
     public interface IDataEntryViewModel : IViewModel, IValidatingViewModel
     {
         DataEntryMode Mode { get; set; }
 
-        ConditionalCommand SaveCommand { get; }
+        RelayCommand SaveCommand { get; }
 
         SimpleCommand CancelCommand { get; }
 

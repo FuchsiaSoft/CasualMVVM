@@ -1,11 +1,11 @@
-﻿using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
+﻿using Vaper.WindowMediation.WindowCreation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FuchsiaSoft.CasualMVVM.WindowMediation
+namespace Vaper.WindowMediation
 {
     /// <summary>
     /// Provides a central listening point for the event raised by <see cref="WindowMediator"/>
@@ -18,12 +18,12 @@ namespace FuchsiaSoft.CasualMVVM.WindowMediation
         private const string NULL_SERVICE_MESSAGE =
             "A null value was passed when a valid IWindowService implementation " +
             "was required.  A base implementation is provided with " +
-            "FuchsiaSoft.CasualMVVM.WindowMediation.WindowService which will " +
+            "Vaper.WindowMediation.WindowService which will " +
             "open blank, standard WPF windows.  If you require a specific Window of " +
             "your own design, implement a class for " +
-            "FuchsiaSoft.CasualMVVM.WindowMediation.IWindowService and use the ShowWindow " +
+            "Vaper.WindowMediation.IWindowService and use the ShowWindow " +
             "method to initialise and show your chosen Window.  You may also derive from " +
-            "FuchsiaSoft.CasualMVVM.WindowMediation.WindowService, and the ShowWindow method " +
+            "Vaper.WindowMediation.WindowService, and the ShowWindow method " +
             "can be overridden";
 
         /// <summary>

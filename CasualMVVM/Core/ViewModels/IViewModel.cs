@@ -1,14 +1,15 @@
-﻿using FuchsiaSoft.CasualMVVM.WindowMediation;
-using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
+﻿using Vaper.WindowMediation;
+using Vaper.WindowMediation.WindowCreation;
 using System;
 using System.ComponentModel;
 using System.Windows;
 
-namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
+namespace Vaper.Core.ViewModels
 {
     /// <summary>
     /// Provides the core interface for all ViewModels, including
-    /// <see cref="INotifyPropertyChanged"/>
+    /// <see cref="INotifyPropertyChanged"/>.  This is the first
+    /// ViewModel base that supports opening child windows.
     /// </summary>
     public interface IViewModel : INotifyPropertyChanged
     {
@@ -62,7 +63,8 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// <summary>
         /// Sets the <see cref="Action"/> that the ViewModel should execute on 
         /// <see cref="ExecuteExitAction"/>, or
-        /// on deconstruction
+        /// on deconstruction.  It can also be set to execute on window closing
+        /// by associating the window with the ViewModel using <see cref="SetActiveWindow(Window, bool)"/>
         /// </summary>
         /// <param name="exitAction">The <see cref="Action"/> to execute</param>
         void SetExitAction(Action exitAction);
@@ -94,8 +96,21 @@ namespace FuchsiaSoft.CasualMVVM.Core.ViewModels
         /// </summary>
         string WindowTitle { get; set; }
 
+        /// <summary>
+        /// Sets the <see cref="ActiveWindow"/> property and also sets the
+        /// <see cref="InvokeOnWindowClose"/> property, determining whether or
+        /// not the <see cref="Action"/> set as the exit action will execute 
+        /// when the window Closed event fires.
+        /// </summary>
+        /// <param name="window"></param>
+        /// <param name="invokeOnClose"></param>
         void SetActiveWindow(Window window, bool invokeOnClose);
 
+        /// <summary>
+        /// A <see cref="bool"/> which will raise the property changed event when
+        /// set.  This is here as a convenience for binding to Views to indicate when
+        /// a ViewModel is busy doing something asynchronously.
+        /// </summary>
         bool IsBusy { get; set; }
     }
 }

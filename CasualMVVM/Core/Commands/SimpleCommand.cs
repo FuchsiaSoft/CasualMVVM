@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace FuchsiaSoft.CasualMVVM.Core.Commands
+namespace Vaper.Core.Commands
 {
     /// <summary>
     /// SimpleCommand provides a simple way of satisfying the <see cref="ICommand"/>
@@ -60,7 +60,7 @@ namespace FuchsiaSoft.CasualMVVM.Core.Commands
         /// For <see cref="SimpleCommand"/> this will always return true and therefore
         /// the button would always be enabled.  For an implementation that
         /// allows defining whether the command is able to execute
-        /// see <see cref="ConditionalCommand"/>
+        /// see <see cref="RelayCommand"/>
         /// </summary>
         /// <param name="parameter">The parmeter passed as the commandparameter,
         /// not used in this implementation.</param>

@@ -1,4 +1,4 @@
-﻿using FuchsiaSoft.CasualMVVM.Core.ViewModels;
+﻿using Vaper.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
+namespace Vaper.WindowMediation.WindowCreation
 {
     /// <summary>
     /// For documentation of the contract refer to <see cref="IWindowService"/>

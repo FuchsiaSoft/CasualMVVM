@@ -1,18 +1,18 @@
-﻿using FuchsiaSoft.CasualMVVM.Core.ViewModels;
+﻿using Vaper.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-using FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation;
+using Vaper.WindowMediation.WindowCreation;
 using System.Windows.Media;
-using FuchsiaSoft.CasualMvvmExampleWpfApplication.Model;
+using VaperExampleWpfApplication.Model;
 using System.Collections.ObjectModel;
-using FuchsiaSoft.CasualMVVM.Core.Commands;
+using Vaper.Core.Commands;
 using System.Windows;
 
-namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
+namespace VaperExampleWpfApplication.ViewModels
 {
     class ChildWindowViewModel : DataEntryViewModelBase
     {
@@ -107,7 +107,7 @@ namespace FuchsiaSoft.CasualMvvmExampleWpfApplication.ViewModels
         }
 
         [Displayable("Add new hair colour",DisplayType.Button,5)]
-        public ConditionalCommand AddNewHairColourCommand { get { return new ConditionalCommand(AddNewHairColour, CanAddNewHairColour); } }
+        public RelayCommand AddNewHairColourCommand { get { return new RelayCommand(AddNewHairColour, CanAddNewHairColour); } }
 
         private bool CanAddNewHairColour(object obj)
         {

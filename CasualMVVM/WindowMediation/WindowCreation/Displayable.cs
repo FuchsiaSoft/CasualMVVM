@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using FuchsiaSoft.CasualMVVM.Core.ViewModels;
+using Vaper.Core.ViewModels;
 
-namespace FuchsiaSoft.CasualMVVM.WindowMediation.WindowCreation
+namespace Vaper.WindowMediation.WindowCreation
 {
     /// <summary>
     /// The type of control to auto generate onto the window

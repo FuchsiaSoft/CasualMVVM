@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FuchsiaSoft.CasualMVVM")]
+[assembly: AssemblyTitle("Vaper")]
 [assembly: AssemblyDescription("A simple, every day library to support MVVM with WPF for common applications")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FuchsiaSoft")]
-[assembly: AssemblyProduct("CasualMVVM")]
+[assembly: AssemblyProduct("Vaper")]
 [assembly: AssemblyCopyright("Copyright ©  2016 Chris Wilson")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
