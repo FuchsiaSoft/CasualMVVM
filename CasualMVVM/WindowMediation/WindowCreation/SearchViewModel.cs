@@ -208,58 +208,68 @@ namespace Vaper.WindowMediation.WindowCreation
         {
             MarkBusy();
 
-            await Task.Run(() =>
+            //await Task.Run(() =>
+            //{
+
+            //});
+            if (string.IsNullOrEmpty(FilterText))
             {
-                foreach (T item in AvailableObjects)
+                FilteredObjects = new ObservableCollection<T>
+                    (AvailableObjects);
+                return;
+            }
+
+            FilteredObjects.Clear();
+
+            foreach (T item in AvailableObjects)
+            {
+                bool itemDone = false; 
+
+                foreach (PropertyInfo property in typeof(T).GetProperties())
                 {
-                    if (FilterText == null)
-                    {
-                        FilteredObjects = new ObservableCollection<T>
-                            (AvailableObjects);
-                        return;
-                    }
+                    if (property.GetValue(item) == null) continue;
 
-                    foreach (PropertyInfo property in typeof(T).GetProperties())
+                    //only check properties that have the Searchable attribute
+                    if (HasSearchableAttribute(property))
                     {
-                        if (property.GetValue(item) == null) break;
+                        string displayPath = property.GetCustomAttribute<Searchable>(true).DisplayPath;
 
-                        //only check properties that have the Searchable attribute
-                        if (HasSearchableAttribute(property))
+                        string propertyString;
+
+                        if (!string.IsNullOrEmpty(displayPath))
                         {
-                            string displayPath = property.GetCustomAttribute<Searchable>(true).DisplayPath;
+                            //get the referenced path
 
-                            if (displayPath != string.Empty)
-                            {
-                                //get the referenced path
+                            //TODO:
+                            //need to check if this works with nested reference types,
+                            //it may be neccessary to use recursion here to keep
+                            //working through the properties until we get the desired
+                            //one in the event of property.otherproperty.value or whatever
 
-                                //TODO:
-                                //need to check if this works with nested reference types,
-                                //it may be neccessary to use recursion here to keep
-                                //working through the properties until we get the desired
-                                //one in the event of property.otherproperty.value or whatever
-                                if (property.GetType().GetProperty(displayPath)
-                                    .GetValue(item).ToString().ToUpper()
-                                    .Contains(FilterText))
-                                {
-                                    ActiveWindow.Dispatcher.Invoke
-                                        (() => FilteredObjects.Add(item));
-                                }
-                            }
-                            else
-                            {
-                                if (property.GetValue(item)
-                                    .ToString().ToUpper()
-                                    .Contains(FilterText))
-                                {
-                                    ActiveWindow.Dispatcher.Invoke
-                                        (() => FilteredObjects.Add(item));
-                                    break;
-                                }
-                            }
-                        }                       
+                            propertyString = property.GetValue(item).GetType()
+                                .GetProperty(displayPath).GetValue(property.GetValue(item))
+                                .ToString().ToUpper();
+                        }
+                        else
+                        {
+                            propertyString = property.GetValue(item)
+                                .ToString().ToUpper();
+                        }
+
+                        if (propertyString.Contains(FilterText.ToUpper()))
+                        {
+                            FilteredObjects.Add(item);
+                            itemDone = true;
+                            break;
+                        }
                     }
                 }
-            });
+                if (itemDone)
+                {
+                    itemDone = false;
+                    continue;
+                }
+            }
 
             MarkFree();
         }
