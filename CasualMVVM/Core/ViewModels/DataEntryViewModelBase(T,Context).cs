@@ -191,6 +191,9 @@ namespace Vaper.Core.ViewModels
                     object entity = property.GetValue(_Entity);
                     DbSet set = db.Set(property.PropertyType);
 
+                    //TODO: this will throw exception if _Entity has child objects
+                    //that are themselves entities and have been left null when not
+                    //nullable in the schema, should put in a meaningful exception about it
                     set.Attach(entity);
 
                     ObjectContext context = ((IObjectContextAdapter)db).ObjectContext;

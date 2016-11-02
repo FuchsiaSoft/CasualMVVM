@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/14/2016 11:16:57
--- Generated from EDMX file: C:\Users\dupoi\Documents\GitHub\CasualMVVM\DemoApplication\Model\DemoModel.edmx
+-- Date Created: 11/02/2016 17:26:49
+-- Generated from EDMX file: C:\Users\Chris\Documents\GitHub\CasualMVVM\DemoApplication\Model\DemoModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,11 +17,41 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_CaseTypeCase]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Cases] DROP CONSTRAINT [FK_CaseTypeCase];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PersonCase]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Cases] DROP CONSTRAINT [FK_PersonCase];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CaseTask]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Tasks] DROP CONSTRAINT [FK_CaseTask];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CaseTelephoneContact]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TelephoneContacts] DROP CONSTRAINT [FK_CaseTelephoneContact];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PersonTelephoneContact]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TelephoneContacts] DROP CONSTRAINT [FK_PersonTelephoneContact];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Cases]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Cases];
+GO
+IF OBJECT_ID(N'[dbo].[CaseTypes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CaseTypes];
+GO
+IF OBJECT_ID(N'[dbo].[People]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[People];
+GO
+IF OBJECT_ID(N'[dbo].[Tasks]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Tasks];
+GO
+IF OBJECT_ID(N'[dbo].[TelephoneContacts]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TelephoneContacts];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables

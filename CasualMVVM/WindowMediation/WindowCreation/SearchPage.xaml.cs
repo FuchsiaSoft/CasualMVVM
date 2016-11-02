@@ -25,9 +25,6 @@ namespace Vaper.WindowMediation.WindowCreation
         public SearchPage()
         {
             InitializeComponent();
-        }
-
-
-        
+        }        
     }
 }

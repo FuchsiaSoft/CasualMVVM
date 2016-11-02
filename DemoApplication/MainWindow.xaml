@@ -4,9 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DemoApplication"
+        xmlns:vm="clr-namespace:DemoApplication.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <DockPanel>
+            <WrapPanel DockPanel.Dock="Top">
+                <Button Margin="5" Padding="4" Content="New Case"
+                        Command="{Binding NewCaseCommand}"/>
+            </WrapPanel>
+            <DataGrid ItemsSource="{Binding AvailableCases}"
+                      SelectedItem="{Binding SelectedCase}">
+                
+            </DataGrid>
+        </DockPanel>
     </Grid>
 </Window>

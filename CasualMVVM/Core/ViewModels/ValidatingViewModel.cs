@@ -15,7 +15,7 @@ namespace Vaper.Core.ViewModels
     /// </summary>
     public abstract class ValidatingViewModelBase : SimpleViewModelBase, IValidatingViewModel
     {
-        protected ValidationContext _Context;
+        private ValidationContext _ValidationContext;
 
         private int _ValidationConcernCount;
         /// <summary>
@@ -95,7 +95,7 @@ namespace Vaper.Core.ViewModels
         /// <returns></returns>
         public virtual bool Validate(ICollection<ValidationResult> validationResults)
         {
-            if (_Context == null) _Context = new ValidationContext(this);
+            if (_ValidationContext == null) _ValidationContext = new ValidationContext(this);
 
             validationResults = new List<ValidationResult>();
 
@@ -103,10 +103,10 @@ namespace Vaper.Core.ViewModels
 
             foreach (PropertyInfo property in properties)
             {
-                _Context.MemberName = property.Name;
+                _ValidationContext.MemberName = property.Name;
 
                 Validator.TryValidateProperty
-                    (property.GetValue(this), _Context, validationResults);
+                    (property.GetValue(this), _ValidationContext, validationResults);
             }
 
             if (validationResults.Count == 0)
