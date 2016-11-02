@@ -12,6 +12,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Vaper.WindowMediation.WindowCreation
 {
+    /// <summary>
+    /// The internal ViewModel for the automatic search window, which will provide
+    /// search functionality for any given type in an implementation of Vaper
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     internal class SearchViewModel<T> : SimpleViewModelBase, ISearchViewModel
         where T : class
     {
@@ -146,6 +151,11 @@ namespace Vaper.WindowMediation.WindowCreation
             return attributes;
         }
 
+        /// <summary>
+        /// The <see cref="T"/> result that is returned from user
+        /// interacting with this search window.  This value will
+        /// return null if the user did not select anything.
+        /// </summary>
         public T Result { get; set; }
 
         public RelayCommand SelectCommand { get { return new RelayCommand(Select, CanSelect); } }
