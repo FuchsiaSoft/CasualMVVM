@@ -226,13 +226,35 @@ namespace Vaper.WindowMediation.WindowCreation
                         //only check properties that have the Searchable attribute
                         if (HasSearchableAttribute(property))
                         {
-                            if (property.GetValue(item)
-                            .ToString().ToUpper()
-                            .Contains(FilterText))
+                            string displayPath = property.GetCustomAttribute<Searchable>(true).DisplayPath;
+
+                            if (displayPath != string.Empty)
                             {
-                                ActiveWindow.Dispatcher.Invoke
-                                    (() => FilteredObjects.Add(item));
-                                break;
+                                //get the referenced path
+
+                                //TODO:
+                                //need to check if this works with nested reference types,
+                                //it may be neccessary to use recursion here to keep
+                                //working through the properties until we get the desired
+                                //one in the event of property.otherproperty.value or whatever
+                                if (property.GetType().GetProperty(displayPath)
+                                    .GetValue(item).ToString().ToUpper()
+                                    .Contains(FilterText))
+                                {
+                                    ActiveWindow.Dispatcher.Invoke
+                                        (() => FilteredObjects.Add(item));
+                                }
+                            }
+                            else
+                            {
+                                if (property.GetValue(item)
+                                    .ToString().ToUpper()
+                                    .Contains(FilterText))
+                                {
+                                    ActiveWindow.Dispatcher.Invoke
+                                        (() => FilteredObjects.Add(item));
+                                    break;
+                                }
                             }
                         }                       
                     }
